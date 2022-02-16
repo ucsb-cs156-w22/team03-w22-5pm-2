@@ -1,5 +1,9 @@
-# docs/index.md
+# Links 
 
-This content should be replaced by documentation for a repo
-once the appropriate GitHub actions script is run.
+* Source Repo: <https://github.com/{{site.repo}}>
+* Production Docs Repo: <https://github.com/{{site.repo}}-docs>
 
+
+# Documentation
+
+* [Storybook](storybook)
