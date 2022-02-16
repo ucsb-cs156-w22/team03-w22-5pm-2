@@ -1,5 +1,6 @@
 package edu.ucsb.cs156.example.controllers;
-
+//Instructions didn't say to include controller or controller test. Instead of deleting this, I've commented it out.
+/*
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.ucsb.cs156.example.services.EarthquakeQueryService;
@@ -42,3 +43,4 @@ public class EarthquakesController {
     }
 
 }
+*/
