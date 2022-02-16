@@ -1,0 +1,410 @@
+
+name: 000 - CREATE ISSUES
+on:
+  workflow_dispatch:
+jobs:
+  createIssues:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create Project team03
+      run: |
+        project_number=$(gh api -X POST /repos/${{ github.repository }}/projects  -H "Accept: application/vnd.github.v3+json"  -f name="team03" --jq '.id')
+        echo 'PROJECT_NUMBER='$project_number >> $GITHUB_ENV
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create Todo Column on team03
+      run: |
+        gh api -X POST /projects/${PROJECT_NUMBER}/columns  -H "Accept: application/vnd.github.v3+json"  -f name="Todo" 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Issue 1 From File
+      id: step1
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Set up team deployments for prod and qa on Heroku, including Google OAuth setup
+        content-filepath: issues/issue00_set_up_deployment_on_heroku.md
+    - name: Add Issue 1 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step1.outputs.issue-number }}
+
+    - name: Create Issue 2 From File
+      id: step2
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Set up MongoDB database
+        content-filepath: issues/issue01_set_up_mongodb_instance.md
+    - name: Add Issue 2 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step2.outputs.issue-number }}
+
+    - name: Create Issue 3 From File
+      id: step3
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Set up -docs and -docs-qa websites to host Storybook.
+        content-filepath: issues/issue02_docs_and_docs_qa_repos_are_deployed.md
+    - name: Add Issue 3 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step3.outputs.issue-number }}
+
+    - name: Create Issue 4 From File
+      id: step4
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Set up codecov token and codecov badge.
+        content-filepath: issues/issue03_codecov_token.md
+    - name: Add Issue 4 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step4.outputs.issue-number }}
+
+    - name: Create Issue 5 From File
+      id: step5
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add CollegiateSubreddits menu and page placeholders
+        content-filepath: issues/issue11_cr_menu_page_placeholders.md
+    - name: Add Issue 5 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step5.outputs.issue-number }}
+
+    - name: Create Issue 6 From File
+      id: step6
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Table component for CollegiateSubreddits
+        content-filepath: issues/issue12_cr_table_component.md
+    - name: Add Issue 6 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step6.outputs.issue-number }}
+
+    - name: Create Issue 7 From File
+      id: step7
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Implement List page for CollegiateSubreddits 
+        content-filepath: issues/issue13_cr_list_page.md
+    - name: Add Issue 7 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step7.outputs.issue-number }}
+
+    - name: Create Issue 8 From File
+      id: step8
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Make a form for CollegiateSubreddits to allow data entry
+        content-filepath: issues/issue14_cr_form.md
+    - name: Add Issue 8 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step8.outputs.issue-number }}
+
+    - name: Create Issue 9 From File
+      id: step9
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: The Create Page for CollegiateSubredits works
+        content-filepath: issues/issue15_cr_create_page.md
+    - name: Add Issue 9 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step9.outputs.issue-number }}
+
+    - name: Create Issue 10 From File
+      id: step10
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Delete for CollegiateSubreddits
+        content-filepath: issues/issue16_cr_delete.md
+    - name: Add Issue 10 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step10.outputs.issue-number }}
+
+    - name: Create Issue 11 From File
+      id: step11
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Edit for CollegiateSubreddits
+        content-filepath: issues/issue17_cr_edit.md
+    - name: Add Issue 11 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step11.outputs.issue-number }}
+
+    - name: Create Issue 12 From File
+      id: step12
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add UCSBSubjects menu and page placeholders
+        content-filepath: issues/issue31_us_menu_page_placeholders.md
+    - name: Add Issue 12 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step12.outputs.issue-number }}
+
+    - name: Create Issue 13 From File
+      id: step13
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Table component for UCSBSubjects
+        content-filepath: issues/issue32_us_table_component.md
+    - name: Add Issue 13 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step13.outputs.issue-number }}
+
+    - name: Create Issue 14 From File
+      id: step14
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Implement List page for UCSBSubjects 
+        content-filepath: issues/issue33_us_list_page.md
+    - name: Add Issue 14 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step14.outputs.issue-number }}
+
+    - name: Create Issue 15 From File
+      id: step15
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Make a form for UCSBSubjects to allow data entry
+        content-filepath: issues/issue34_us_form.md
+    - name: Add Issue 15 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step15.outputs.issue-number }}
+
+    - name: Create Issue 16 From File
+      id: step16
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: The Create Page for UCSBSubject works
+        content-filepath: issues/issue35_us_create_page.md
+    - name: Add Issue 16 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step16.outputs.issue-number }}
+
+    - name: Create Issue 17 From File
+      id: step17
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Delete for UCSBSubjects
+        content-filepath: issues/issue36_us_delete.md
+    - name: Add Issue 17 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step17.outputs.issue-number }}
+
+    - name: Create Issue 18 From File
+      id: step18
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Edit for UCSBSubjects
+        content-filepath: issues/issue37_us_edit.md
+    - name: Add Issue 18 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step18.outputs.issue-number }}
+
+    - name: Create Issue 19 From File
+      id: step19
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Collection and Documents for Earthquake Data
+        content-filepath: issues/issue51_add_earthquakes_service copy.md
+    - name: Add Issue 19 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step19.outputs.issue-number }}
+
+    - name: Create Issue 20 From File
+      id: step20
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add EarthquakeQueryService to Backend
+        content-filepath: issues/issue52_eq_document_collection.md
+    - name: Add Issue 20 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step20.outputs.issue-number }}
+
+    - name: Create Issue 21 From File
+      id: step21
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add endpoint to retrieve earthquakes
+        content-filepath: issues/issue53_eq_retrieve.md
+    - name: Add Issue 21 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step21.outputs.issue-number }}
+
+    - name: Create Issue 22 From File
+      id: step22
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add endpoint to purge earthquakes
+        content-filepath: issues/issue54_eq_purge.md
+    - name: Add Issue 22 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step22.outputs.issue-number }}
+
+    - name: Create Issue 23 From File
+      id: step23
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add endpoint to list earthquakes
+        content-filepath: issues/issue55_eq_list.md
+    - name: Add Issue 23 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step23.outputs.issue-number }}
+
+    - name: Create Issue 24 From File
+      id: step24
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add Earthquakes menu and page placeholders
+        content-filepath: issues/issue61_eq_menu_and_placeholders.md
+    - name: Add Issue 24 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step24.outputs.issue-number }}
+
+    - name: Create Issue 25 From File
+      id: step25
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Table component for Earthquakes
+        content-filepath: issues/issue62_eq_table_component copy 2.md
+    - name: Add Issue 25 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step25.outputs.issue-number }}
+
+    - name: Create Issue 26 From File
+      id: step26
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Implement List page for Earthquakes 
+        content-filepath: issues/issue63_eq_list_page.md
+    - name: Add Issue 26 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step26.outputs.issue-number }}
+
+    - name: Create Issue 27 From File
+      id: step27
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Implement Earthquake Form for Retrieve page.
+        content-filepath: issues/issue64_eq_retrieve_form.md
+    - name: Add Issue 27 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step27.outputs.issue-number }}
+
+    - name: Create Issue 28 From File
+      id: step28
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add Purge Button to Earthquakes List Page
+        content-filepath: issues/issue65_eq_purge_button.md
+    - name: Add Issue 28 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step28.outputs.issue-number }}
+
+    - name: Create Issue 29 From File
+      id: step29
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Implement Earthquake Retrieve page.
+        content-filepath: issues/issue65_eq_retrieve_page.md
+    - name: Add Issue 29 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step29.outputs.issue-number }}
+
+    - name: Create Issue 30 From File
+      id: step30
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Add Purge Button to Earthquakes List Page
+        content-filepath: issues/issue66_eq_purge_button.md
+    - name: Add Issue 30 to Kanban board team03
+      uses: peter-evans/create-or-update-project-card@v1
+      with:
+        project-name: team03
+        column-name: Todo
+        issue-number: ${{ steps.step30.outputs.issue-number }}
