@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+
+codeDev Badge: [![codecov](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-2/branch/master/graph/badge.svg?token=OqBXYZSSoU)](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-2)
+
 # TEMPLATE-docs
 
 This repo is a template repo used in the GitHub Actions scripts of several 
