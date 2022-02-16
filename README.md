@@ -1,5 +1,9 @@
 <<<<<<< HEAD
 
+# Heroku Deployments:
+Prod: <https://w22-5pm-2-team03.herokuapp.com/>
+QA: <https://w22-5pm-2-team03-qa.herokuapp.com/>
+
 codeDev Badge: [![codecov](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-2/branch/master/graph/badge.svg?token=OqBXYZSSoU)](https://codecov.io/gh/ucsb-cs156-w22/team03-w22-5pm-2)
 
 # TEMPLATE-docs
