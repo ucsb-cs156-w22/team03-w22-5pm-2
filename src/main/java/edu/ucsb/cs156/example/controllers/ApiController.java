@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.ucsb.cs156.example.models.CurrentUser;
 import edu.ucsb.cs156.example.services.CurrentUserService;
+import edu.ucsb.cs156.example.services.LoggingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +18,9 @@ import java.util.Map;
 public abstract class ApiController {
   @Autowired
   private CurrentUserService currentUserService;
+
+  @Autowired
+  protected LoggingService loggingService;
 
   protected CurrentUser getCurrentUser() {
     return currentUserService.getCurrentUser();
