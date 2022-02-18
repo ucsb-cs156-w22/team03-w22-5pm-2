@@ -17,8 +17,6 @@ describe("UCSBSubjectsIndexPage tests", () => {
 
     const queryClient = new QueryClient();
     test("renders without crashing", () => {
-        axiosMock.onGet("/api/ucsbsubjects/all").reply(200, []);
-
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
