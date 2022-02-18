@@ -13,6 +13,7 @@ import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
 import CollegiateSubredditsIndexPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsIndexPage";
 import CollegiateSubredditsCreatePage from "main/pages/CollegiateSubreddits/CollegiateSubredditsCreatePage";
+import CollegiateSubredditsEditPage from "main/pages/CollegiateSubreddits/CollegiateSubredditsEditPage"
 
 
 import StudentsIndexPage from "main/pages/Students/StudentsIndexPage";
@@ -80,7 +81,7 @@ function App() {
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
-              <Route exact path="/collegiateSubreddits/list" element={<CollegiateSubredditsIndexPage />} />
+              <Route exact path="/collegiatesubreddits/list" element={<CollegiateSubredditsIndexPage />} />
             </>
           )
         }
@@ -88,6 +89,7 @@ function App() {
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
+              <Route exact path="/collegiatesubreddits/edit/:id" element={<CollegiateSubredditsEditPage />} />
               <Route exact path="/collegiatesubreddits/create" element={<CollegiateSubredditsCreatePage />} />
             </>
           )
