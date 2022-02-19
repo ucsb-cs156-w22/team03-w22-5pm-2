@@ -10,9 +10,9 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
 
     const navigate = useNavigate();
 
-    const editCallback = (cell) => {
-        navigate(`/collegiatesubreddits/edit/${cell.row.values.id}`)
-    }
+    // const editCallback = (cell) => {
+    //     navigate(`/collegiatesubreddits/edit/${cell.row.values.id}`)
+    // }
 
     // Stryker disable all : hard to test for query caching
 
@@ -24,7 +24,7 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
     // Stryker enable all 
 
     // Stryker disable next-line all : TODO try to make a good test for this
-    const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
+    //const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
 
 
     const columns = [
@@ -46,10 +46,12 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
         }
     ];
 
-    if (hasRole(currentUser, "ROLE_ADMIN")) {
-        columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
-        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
-    } 
+
+    // if (hasRole(currentUser, "ROLE_ADMIN")) {
+    //     //columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
+    // 
+    //     //columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
+    // } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
     const memoizedColumns = React.useMemo(() => columns, [columns]);

@@ -137,7 +137,8 @@ describe("CollegiateSubredditsIndexPage tests", () => {
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
-    //Delete test: not implemented yet. May be useful for when implemented in the future
+    
+        // to be uncommented when Delete is implemented
     // test("test what happens when you click delete, admin", async () => {
     //     setupAdminUser();
 
