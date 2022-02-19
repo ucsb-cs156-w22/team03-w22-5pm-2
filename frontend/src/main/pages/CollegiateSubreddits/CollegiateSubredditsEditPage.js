@@ -1,10 +1,10 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
-export default function TodosEditPage() {
+export default function CollegiateSubredditsEditPage() {
     return (
         <BasicLayout>
             <div className="pt-2">
-                <h1>CollegiateSubreddits</h1>
+                <h1>Edit CollegiateSubreddit</h1>
                 <p>
                     This is where the edit page will go
                 </p>

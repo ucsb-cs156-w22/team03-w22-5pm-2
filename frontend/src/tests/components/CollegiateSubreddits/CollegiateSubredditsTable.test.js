@@ -102,7 +102,7 @@ describe("UserTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable csr={collegiateSubredditsFixtures.threeDates} currentUser={currentUser} />
+          <CollegiateSubredditsTable csr={collegiateSubredditsFixtures.threeSubreddits} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 

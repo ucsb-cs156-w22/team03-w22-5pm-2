@@ -47,8 +47,8 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
     ];
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
-        columns.push(ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"));
-        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable"));
+        columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
     } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
