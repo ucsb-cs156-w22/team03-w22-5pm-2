@@ -7,7 +7,7 @@
         "clear-text",
         "html"
     ],
-    "coverageAnalysis": "off",
+    "coverageAnalysis": "all",
     "jest": {
         "projectType": "create-react-app"
     },
@@ -16,8 +16,6 @@
         "!src/main/**/*_NoStryker.{js,jsx,ts,tsx}"
     ],
     "thresholds": { "high": 100, "low": 90, "break": 100 },
-    "tempDirName": "stryker-tmp",
-    "dryRunTimeoutMinutes": 40,
-    "timeoutMS": 10000
+    "tempDirName": "stryker-tmp"
     
 }
