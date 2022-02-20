@@ -172,7 +172,7 @@ describe("AppNavbar tests", () => {
 
         const doLogin = jest.fn();
 
-        const {getByTestId  } = render(
+        const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
@@ -185,11 +185,58 @@ describe("AppNavbar tests", () => {
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await waitFor( () => expect(getByTestId("appnavbar-ucsbdates-list")).toBeInTheDocument() );
+        await waitFor(() => expect(getByTestId("appnavbar-ucsbdates-list")).toBeInTheDocument());
 
     });
 
     test("renders the ucsbdates menu correctly for an admin", async () => {
+
+        const currentUser = currentUserFixtures.adminUser;
+        const systemInfo = systemInfoFixtures.showingBoth;
+
+        const doLogin = jest.fn();
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByTestId("appnavbar-ucsbdates-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-ucsbdates-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+        await waitFor(() => expect(getByTestId(/appnavbar-ucsbdates-create/)).toBeInTheDocument());
+
+    });
+    test("renders the CollegiateSubreddits menu correctly for a user", async () => {
+
+        const currentUser = currentUserFixtures.userOnly;
+        const systemInfo = systemInfoFixtures.showingBoth;
+
+        const doLogin = jest.fn();
+
+        const {getByTestId  } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByTestId("appnavbar-collegiatesubreddits-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-collegiatesubreddits-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+        await waitFor( () => expect(getByTestId("appnavbar-collegiatesubreddits-list")).toBeInTheDocument() );
+
+    });
+
+    test("renders the CollegiateSubreddits menu correctly for an admin", async () => {
 
         const currentUser = currentUserFixtures.adminUser;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -204,12 +251,12 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByTestId("appnavbar-ucsbdates-dropdown")).toBeInTheDocument());
-        const dropdown = getByTestId("appnavbar-ucsbdates-dropdown");
+        await waitFor(() => expect(getByTestId("appnavbar-collegiatesubreddits-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-collegiatesubreddits-dropdown");
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await waitFor( () => expect(getByTestId(/appnavbar-ucsbdates-create/)).toBeInTheDocument() );
+        await waitFor(() => expect(getByTestId(/appnavbar-collegiatesubreddits-create/)).toBeInTheDocument() );
 
     });
 

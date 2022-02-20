@@ -52,21 +52,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
 
-            <Nav className="mr-auto">
-              {
-                hasRole(currentUser, "ROLE_USER") && (
-                  <NavDropdown title="CollegiateSubreddits" id="appnavbar-csr-dropdown" data-testid="appnavbar-csr-dropdown" >
-                    <NavDropdown.Item href="/collegiatesubreddits/list">List</NavDropdown.Item>
-                {
-                hasRole(currentUser, "ROLE_ADMIN") && (
-                    <NavDropdown.Item href="/collegiatesubreddits/create">Create</NavDropdown.Item>
-                )
-                }
-                  </NavDropdown>
-                )
-              }
-            </Nav>
-
+            
             <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
@@ -109,6 +95,21 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
 
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="CollegiateSubreddits" id="appnavbar-collegiatesubreddits-dropdown" data-testid="appnavbar-collegiatesubreddits-dropdown" >
+                    <NavDropdown.Item href="/collegiatesubreddits/list" data-testid="appnavbar-collegiatesubreddits-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/collegiatesubreddits/create" data-testid="appnavbar-collegiatesubreddits-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+
             <Nav className="ml-auto">
               {
                 currentUser && currentUser.loggedIn ? (
@@ -121,6 +122,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
+
           </Navbar.Collapse>
         </Container >
       </Navbar >
