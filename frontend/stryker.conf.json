@@ -16,6 +16,7 @@
         "!src/main/**/*_NoStryker.{js,jsx,ts,tsx}"
     ],
     "thresholds": { "high": 100, "low": 90, "break": 100 },
-    "tempDirName": "stryker-tmp"
+    "tempDirName": "stryker-tmp",
+    "concurrency": 2
     
 }
