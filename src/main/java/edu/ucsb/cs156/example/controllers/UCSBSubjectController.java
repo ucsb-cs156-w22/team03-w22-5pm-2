@@ -78,9 +78,10 @@ public class UCSBSubjectController extends ApiController {
             return soe.error;
         }
         String body = mapper.writeValueAsString(soe.ucsbSubject);
-        return ResponseEntity.ok().body(body);
+        return ResponseEntity.ok().body(body); 
     }
 
+    
     @ApiOperation(value = "Create a new UCSBSubject")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
