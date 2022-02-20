@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Service
 public class LoggingService {
-
+/*
     public Method findMethod(Method [] methods, String methodName) {
         int count = 0;
         Method result = null;
@@ -125,5 +125,5 @@ public class LoggingService {
     
         log.info("CONTROLLER: {} {} {}.{} (\"{}\", line {})",httpMethod,path,simpleClassName,nameOfCallingMethod,filename,lineNumber);
       }
-    
+ */   
 }
