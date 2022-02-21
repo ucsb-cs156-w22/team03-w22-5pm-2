@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,27 +48,29 @@ public class EarthquakesController extends ApiController {
         return features;
     }
 
-    // @Autowired
-    // EarthquakeQueryService earthquakeQueryService;
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @ApiOperation(value = "Store query from USGS Earthquake API", notes = "")
-    // @PostMapping("/retrieve")
-    // public ResponseEntity<List<Feature>> getEarthquake(
-    //         @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
-    //         @ApiParam("minimum magnitude, e.g. 2.5") @RequestParam String minMag
-    //         ) throws JsonProcessingException {
-    //     log.info("getEarthquakes: distance={} minMag={}", distance, minMag);
-    //     String json = earthquakeQueryService.getJSON(distance, minMag);
+    @Autowired
+    EarthquakeQueryService earthquakeQueryService;
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Store query from USGS Earthquake API", notes = "")
+    @PostMapping("/retrieve")
+    public ResponseEntity<List<Feature>> getEarthquake(
+            @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
+            @ApiParam("minimum magnitude, e.g. 2.5") @RequestParam String minMag
+            ) throws JsonProcessingException {
+        log.info("getEarthquakes: distance={} minMag={}", distance, minMag);
         
-    //     FeatureCollection featureCollection = mapper.readValue(json, FeatureCollection.class);	
-
-    //     List<Feature> listFeatures = featureCollection.getFeatures();
-    //     List<Feature> savedFeatures = new ArrayList<Feature>();
-    //     for(Feature feat: listFeatures){
-    //         Feature savedFeature = earthquakesCollection.save(feat);
-    //         savedFeatures.add(savedFeature);
-    //     }
+        String json = earthquakeQueryService.getJSON(distance, minMag); 
+        //json returned from Earthquakes API returns a FeatureCollection object
+        FeatureCollection featureCollection = mapper.readValue(json, FeatureCollection.class);	
         
-    //     return ResponseEntity.ok().body(savedFeatures);
-    // }
+        //We want to save each Feature in the list of Features that is a property of FeatureCollections
+        List<Feature> listFeatures = featureCollection.getFeatures();
+        List<Feature> savedFeatures = new ArrayList<Feature>();
+        for(Feature feat: listFeatures){
+            Feature savedFeature = earthquakesCollection.save(feat);
+            savedFeatures.add(savedFeature);
+        }
+        
+        return ResponseEntity.ok().body(savedFeatures);
+    }
 }
