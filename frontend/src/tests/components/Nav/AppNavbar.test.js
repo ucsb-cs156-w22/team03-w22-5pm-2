@@ -309,25 +309,7 @@ describe("AppNavbar tests", () => {
 
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    test("renders the Earthquake menu correctly for a user", async () => {
+test("renders the Earthquake menu correctly for a user", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -342,16 +324,16 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByTestId("appnavbar-earthquake-dropdown")).toBeInTheDocument());
-        const dropdown = getByTestId("appnavbar-earthquake-dropdown");
+        await waitFor(() => expect(getByTestId("appnavbar-earthquakes-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-earthquakes-dropdown");
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await waitFor( () => expect(getByTestId("appnavbar-earthquake-list")).toBeInTheDocument() );
+        await waitFor( () => expect(getByTestId("appnavbar-earthquakes-list")).toBeInTheDocument() );
 
     });
 
-    test("renders the Earthquake menu correctly for an admin", async () => {
+    test("renders the Earthquakes menu correctly for an admin", async () => {
 
         const currentUser = currentUserFixtures.adminUser;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -366,12 +348,12 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByTestId("appnavbar-earthquake-dropdown")).toBeInTheDocument());
-        const dropdown = getByTestId("appnavbar-earthquake-dropdown");
+        await waitFor(() => expect(getByTestId("appnavbar-earthquakes-dropdown")).toBeInTheDocument());
+        const dropdown = getByTestId("appnavbar-earthquakes-dropdown");
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await waitFor( () => expect(getByTestId(/appnavbar-earthquake-create/)).toBeInTheDocument() );
+        await waitFor( () => expect(getByTestId(/appnavbar-earthquakes-create/)).toBeInTheDocument() );
 
     });
 });
