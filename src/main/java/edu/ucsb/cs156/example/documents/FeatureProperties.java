@@ -15,5 +15,6 @@ public class FeatureProperties {
     private String mag;
     private String place;
     private String time;
+    private String url;
     private String title;
 }
