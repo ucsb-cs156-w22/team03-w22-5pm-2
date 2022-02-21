@@ -43,7 +43,7 @@ describe("CollegiateSubredditsEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/collegiatesubreddits", { params: { id: 17 } }).timeout();
+            axiosMock.onGet("/api/collegiateSubreddits", { params: { id: 17 } }).timeout();
         });
 
         const queryClient = new QueryClient();
@@ -70,13 +70,13 @@ describe("CollegiateSubredditsEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/collegiatesubreddits", { params: { id: 17 } }).reply(200, {
+            axiosMock.onGet("/api/collegiateSubreddits", { params: { id: 17 } }).reply(200, {
                 id: 17,
                 name: 'Pie',
                 location: "PiesRUs.org",
                 subreddit: "Desserts"
             });
-            axiosMock.onPut('/api/collegiatesubreddits').reply(200, {
+            axiosMock.onPut('/api/collegiateSubreddits').reply(200, {
                 id: "17",
                 name: 'Christmas',
                 location: "Christmas.org",
