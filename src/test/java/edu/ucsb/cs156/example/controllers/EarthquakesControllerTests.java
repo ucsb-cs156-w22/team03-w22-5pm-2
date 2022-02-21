@@ -92,54 +92,77 @@ public class EarthquakesControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        // @WithMockUser(roles = { "USER" })
-        // @Test
-        // public void api_redditposts_post__user_logged_in__storeone_adds_post_to_collection() throws Exception {
 
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void api_earthquakes_post__admin_logged_in__adds_one_earthquake_to_collection() throws Exception {
 
-        //         RedditFlair rf = RedditFlair.builder()
-        //                         .t("sampleT")
-        //                         .e("sampleE")
-        //                         .build();
+                // arrange
 
-        //         List<RedditFlair> lrf = new ArrayList<>();
-        //         lrf.add(rf);
+                FeatureProperties fp = FeatureProperties.builder()
+                        .mag("mag")
+                        .place("place")
+                        .time("time")
+                        .url("url")
+                        .title("title")
+                        .build();
 
-        //         RedditPost rp = RedditPost.builder()
-        //                         ._id("")
-        //                         .id("wxyz123")
-        //                         .author("pconrad0")
-        //                         .title("A sample post")
-        //                         .selftext("This is a test.")
-        //                         .selftext_html("<p>This is a test.</p>")
-        //                         .subreddit("UCSantaBarbara")
-        //                         .link_flair_richtext(lrf)
-        //                         .build();
+                Feature feature = Feature.builder()
+                        ._Id("1")
+                        .type("type")
+                        .properties(fp)
+                        .id("id")
+                        .build();
+                
+                List<Feature> fl = new ArrayList<Feature>();
+                fl.add(feature);
 
-        //         String rpAsJson = mapper.writeValueAsString(rp);
+                Metadata metadata = Metadata.builder()
+                        .generated("gen")
+                        .url("url")
+                        .title("title")
+                        .status("status")
+                        .api("api")
+                        .count(1)
+                        .build();
 
-        //         RedditPost savedRp = mapper.readValue(rpAsJson, RedditPost.class);
-        //         savedRp.set_id("efgh5678");
-        //         String savedRpAsJson = mapper.writeValueAsString(savedRp);
+                FeatureCollection fc = FeatureCollection.builder()
+                        .type("type")
+                        .metadata(metadata)
+                        .features(fl)
+                        .build();
 
-        //         when(redditPostsCollection.save(eq(rp))).thenReturn(savedRp);
 
-        //         when(redditFirstPostService.getRedditPost(eq("UCSantaBarbara"))).thenReturn(rp);
+                String fcAsJson = mapper.writeValueAsString(fc);
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         post("/api/redditposts/storeone?subreddit=UCSantaBarbara")
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isOk())
-        //                         .andReturn();
+                String featureAsJson = mapper.writeValueAsString(feature);
+                Feature savedFeature = mapper.readValue(featureAsJson, Feature.class);
+                savedFeature.set_Id("efgh5678");
+                List<Feature> saved_fl = new ArrayList<Feature>();
+                saved_fl.add(savedFeature);
+                String savedFeatureAsJson = mapper.writeValueAsString(saved_fl);
 
-        //         // assert
 
-        //         verify(redditFirstPostService, times(1)).getRedditPost(eq("UCSantaBarbara"));
-        //         verify(redditPostsCollection, times(1)).save(eq(rp));
-        //         String responseString = response.getResponse().getContentAsString();
-        //         assertEquals(savedRpAsJson, responseString);
-        // }
+                String distance = "50";
+                String minMag = "1";
+                when(earthquakeQueryService.getJSON(eq(distance),eq(minMag))).thenReturn(fcAsJson);
+                when(earthquakesCollection.save(eq(feature))).thenReturn(savedFeature);
+
+
+                String url = String.format("/api/earthquakes/retrieve?distance=%s&minMag=%s",distance,minMag);
+                // act
+                MvcResult response = mockMvc.perform(
+                                post(url)
+                                .with(csrf()))
+                                .andExpect(status().isOk())
+                                .andReturn();
+
+                // assert
+
+                verify(earthquakeQueryService, times(1)).getJSON(eq(distance),eq(minMag));
+                verify(earthquakesCollection, times(1)).save(eq(feature));
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(savedFeatureAsJson, responseString);
+        }
 
 }
