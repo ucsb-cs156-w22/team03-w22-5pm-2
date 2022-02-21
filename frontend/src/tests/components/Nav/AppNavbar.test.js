@@ -324,6 +324,7 @@ describe("AppNavbar tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
+        
 
         await waitFor(() => expect(getByTestId("appnavbar-earthquakes-dropdown")).toBeInTheDocument());
         const dropdown = getByTestId("appnavbar-earthquakes-dropdown");
