@@ -11,7 +11,7 @@ export function cellToAxiosParamsDelete(cell) {
         url: "/api/earthquakes",
         method: "DELETE",
         params: {
-            id: cell.row.values.id
+            _Id: cell.row.values._Id
         }
     }
 }

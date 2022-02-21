@@ -11,7 +11,7 @@ export default function EarthquakesTable({ subjects, currentUser }) {
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/earthquakes/edit/${cell.row.values.id}`)
+        navigate(`/earthquakes/edit/${cell.row.values._Id}`)
     }
 
     // Stryker disable all : hard to test for query caching
