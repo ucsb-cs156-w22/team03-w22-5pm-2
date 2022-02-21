@@ -123,19 +123,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
 
-            <Nav className="ml-auto">
-              {
-                currentUser && currentUser.loggedIn ? (
-                  <>
-                    <Navbar.Text className="me-3" as={Link} to="/profile">Welcome, {currentUser.root.user.email}</Navbar.Text>
-                    <Button onClick={doLogout}>Log Out</Button>
-                  </>
-                ) : (
-                  <Button href="/oauth2/authorization/google">Log In</Button>
-                )
-              }
-            </Nav>
-
             <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
@@ -150,6 +137,21 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
+
+            <Nav className="ml-auto">
+              {
+                currentUser && currentUser.loggedIn ? (
+                  <>
+                    <Navbar.Text className="me-3" as={Link} to="/profile">Welcome, {currentUser.root.user.email}</Navbar.Text>
+                    <Button onClick={doLogout}>Log Out</Button>
+                  </>
+                ) : (
+                  <Button href="/oauth2/authorization/google">Log In</Button>
+                )
+              }
+            </Nav>
+
+            
 
 
           </Navbar.Collapse>
