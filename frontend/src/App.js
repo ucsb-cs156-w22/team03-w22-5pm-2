@@ -3,6 +3,11 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 
+
+import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
+
+import EarthquakesCreatePage from "main/pages/Earthquakes/EarthquakesCreatePage";
+
 import TodosIndexPage from "main/pages/Todos/TodosIndexPage";
 import TodosCreatePage from "main/pages/Todos/TodosCreatePage";
 import TodosEditPage from "main/pages/Todos/TodosEditPage";
@@ -65,6 +70,23 @@ function App() {
             </>
           )
         }
+
+        
+{
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/Earthquakes/list" element={<EarthquakesIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/Earthquakes/create" element={<EarthquakesCreatePage />} />
+            </>
+          )
+        }
+
 
         {
           hasRole(currentUser, "ROLE_USER") && (
