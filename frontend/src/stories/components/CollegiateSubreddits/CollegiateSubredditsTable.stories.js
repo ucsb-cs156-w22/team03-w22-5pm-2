@@ -4,7 +4,7 @@ import CollegiateSubredditsTable from "main/components/CollegiateSubreddits/Coll
 import { collegiateSubredditsFixtures } from 'fixtures/collegiateSubredditsFixtures';
 
 export default {
-    title: 'components/CollegiateSubreddit/CollegiateSubredditsTable',
+    title: 'components/CollegiateSubreddits/CollegiateSubredditsTable',
     component: CollegiateSubredditsTable
 };
 
