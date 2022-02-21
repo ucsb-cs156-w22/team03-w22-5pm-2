@@ -55,7 +55,7 @@ public class CollegiateSubredditController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<CollegiateSubreddit> allCollegiateSubreddits() {
-        loggingService.logMethod();
+        //loggingService.logMethod();
         Iterable<CollegiateSubreddit> csr = collegiateSubredditRepository.findAll();
         return csr;
     }
@@ -65,7 +65,7 @@ public class CollegiateSubredditController extends ApiController {
     @GetMapping("")
     public ResponseEntity<String> getCollegiateSubbredditById(
             @ApiParam("id") @RequestParam Long id) throws JsonProcessingException {
-        loggingService.logMethod();
+        //loggingService.logMethod();
 
         //coe to shorten "CollegiateSubbreddit or Error"
         CollegiateSubbreditOrError coe = new CollegiateSubbreditOrError(id);
@@ -85,7 +85,7 @@ public class CollegiateSubredditController extends ApiController {
             @ApiParam("name") @RequestParam String name,
             @ApiParam("location") @RequestParam String location,
             @ApiParam("subreddit") @RequestParam String subreddit) {
-        loggingService.logMethod();
+        //loggingService.logMethod();
     
         CollegiateSubreddit csr = new CollegiateSubreddit();
         csr.setName(name);
@@ -100,7 +100,7 @@ public class CollegiateSubredditController extends ApiController {
     @DeleteMapping("")
     public ResponseEntity<String> deleteCollegiateSubreddit(
             @ApiParam("id") @RequestParam Long id) {
-        loggingService.logMethod();
+       // loggingService.logMethod();
 
         //coe to shorted "CollegiateSubbreddit or Error"
         CollegiateSubbreditOrError coe = new CollegiateSubbreditOrError(id);
@@ -120,7 +120,7 @@ public class CollegiateSubredditController extends ApiController {
     public ResponseEntity<String> putCollegiateSubredditById(
             @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid CollegiateSubreddit incomingCollegiateSubreddit) throws JsonProcessingException {
-        loggingService.logMethod();
+      //  loggingService.logMethod();
 
         CollegiateSubbreditOrError coe = new CollegiateSubbreditOrError(id);
 
