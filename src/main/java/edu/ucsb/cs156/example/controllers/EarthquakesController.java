@@ -58,10 +58,12 @@ public class EarthquakesController extends ApiController {
             @ApiParam("minimum magnitude, e.g. 2.5") @RequestParam String minMag
             ) throws JsonProcessingException {
         log.info("getEarthquakes: distance={} minMag={}", distance, minMag);
-        String json = earthquakeQueryService.getJSON(distance, minMag);
         
+        String json = earthquakeQueryService.getJSON(distance, minMag); 
+        //json returned from Earthquakes API returns a FeatureCollection object
         FeatureCollection featureCollection = mapper.readValue(json, FeatureCollection.class);	
-
+        
+        //We want to save each Feature in the list of Features that is a property of FeatureCollections
         List<Feature> listFeatures = featureCollection.getFeatures();
         List<Feature> savedFeatures = new ArrayList<Feature>();
         for(Feature feat: listFeatures){

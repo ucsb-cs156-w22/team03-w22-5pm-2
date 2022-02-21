@@ -75,7 +75,7 @@ public class EarthquakesControllerTests extends ControllerTestCase {
 
                 
                 List<Feature> lf = new ArrayList<>();
-                lf.add(feature);
+                lf.add(feature);//expect list of feature as return value from collection
 
 
                 when(earthquakesCollection.findAll()).thenReturn(lf);
@@ -132,25 +132,26 @@ public class EarthquakesControllerTests extends ControllerTestCase {
                         .features(fl)
                         .build();
 
+                String distance = "50";
+                String minMag = "1";
+                
+                //FeatureCollection Object will be returned in JSON format by EarthQuakeQueryService
+                String fcAsJson = mapper.writeValueAsString(fc); 
+                when(earthquakeQueryService.getJSON(eq(distance),eq(minMag))).thenReturn(fcAsJson);
 
-                String fcAsJson = mapper.writeValueAsString(fc);
-
+                //Returns same Feature with changed _Id on EarthquakesCollection save
                 String featureAsJson = mapper.writeValueAsString(feature);
                 Feature savedFeature = mapper.readValue(featureAsJson, Feature.class);
                 savedFeature.set_Id("efgh5678");
+                when(earthquakesCollection.save(eq(feature))).thenReturn(savedFeature);
+                
+                //Expect to get a list of saved features from Retrieve Endpoint
                 List<Feature> saved_fl = new ArrayList<Feature>();
                 saved_fl.add(savedFeature);
-                String savedFeatureAsJson = mapper.writeValueAsString(saved_fl);
-
-
-                String distance = "50";
-                String minMag = "1";
-                when(earthquakeQueryService.getJSON(eq(distance),eq(minMag))).thenReturn(fcAsJson);
-                when(earthquakesCollection.save(eq(feature))).thenReturn(savedFeature);
-
-
-                String url = String.format("/api/earthquakes/retrieve?distance=%s&minMag=%s",distance,minMag);
+                String expectedJson = mapper.writeValueAsString(saved_fl);
+                
                 // act
+                String url = String.format("/api/earthquakes/retrieve?distance=%s&minMag=%s",distance,minMag);
                 MvcResult response = mockMvc.perform(
                                 post(url)
                                 .with(csrf()))
@@ -158,11 +159,10 @@ public class EarthquakesControllerTests extends ControllerTestCase {
                                 .andReturn();
 
                 // assert
-
                 verify(earthquakeQueryService, times(1)).getJSON(eq(distance),eq(minMag));
                 verify(earthquakesCollection, times(1)).save(eq(feature));
                 String responseString = response.getResponse().getContentAsString();
-                assertEquals(savedFeatureAsJson, responseString);
+                assertEquals(expectedJson , responseString);
         }
 
 }
