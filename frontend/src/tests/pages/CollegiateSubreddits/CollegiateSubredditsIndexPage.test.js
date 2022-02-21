@@ -78,7 +78,7 @@ describe("CollegiateSubredditsIndexPage tests", () => {
     test("renders three subreddits without crashing for regular user", async () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.threeSubreddits);
+        axiosMock.onGet("/api/collegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.threeCollegiateSubreddits);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -97,7 +97,7 @@ describe("CollegiateSubredditsIndexPage tests", () => {
     test("renders three subreddits without crashing for admin user", async () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/collegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.threeSubreddits);
+        axiosMock.onGet("/api/collegiateSubreddits/all").reply(200, collegiateSubredditsFixtures.threeCollegiateSubreddits);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
