@@ -34,33 +34,33 @@ jest.mock('react-router-dom', () => {
 
 describe("CollegiateSubredditsEditPage tests", () => {
 
-    // describe("when the backend doesn't return a subreddit", () => {
+    describe("when the backend doesn't return a subreddit", () => {
 
-        // const axiosMock = new AxiosMockAdapter(axios);
+        const axiosMock = new AxiosMockAdapter(axios);
 
-        // beforeEach(() => {
-        //     axiosMock.reset();
-        //     axiosMock.resetHistory();
-        //     axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-        //     axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-        //     axiosMock.onGet("/api/collegiatesubreddits", { params: { id: 17 } }).timeout();
-        // });
+        beforeEach(() => {
+            axiosMock.reset();
+            axiosMock.resetHistory();
+            axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+            axiosMock.onGet("/api/collegiatesubreddits", { params: { id: 17 } }).timeout();
+        });
 
-        // const queryClient = new QueryClient();
-        // test("renders header but table is not present", async () => {
-        //     const {getByText, queryByTestId} = render(
-        //         <QueryClientProvider client={queryClient}>
-        //             <MemoryRouter>
-        //                 <CollegiateSubredditsEditPage />
-        //             </MemoryRouter>
-        //         </QueryClientProvider>
-        //     );
-        //     await waitFor(() => expect(getByText("Edit CollegiateSubreddit")).toBeInTheDocument());
-        //     expect(queryByTestId("CollegiateSubredditForm-name")).not.toBeInTheDocument();
-        // });
-    // });
+        const queryClient = new QueryClient();
+        test("renders header but table is not present", async () => {
+            const {getByText, queryByTestId} = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <CollegiateSubredditsEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+            await waitFor(() => expect(getByText("Edit CollegiateSubreddit")).toBeInTheDocument());
+            expect(queryByTestId("CollegiateSubredditForm-name")).not.toBeInTheDocument();
+        });
+    });
 
-    //Edit page not created yet.  Just testing if the page loads.
+
     describe("tests where backend is working normally", () => {
 
         const axiosMock = new AxiosMockAdapter(axios);
@@ -96,33 +96,74 @@ describe("CollegiateSubredditsEditPage tests", () => {
         });
 
 
-//May be helpful for future tests:
-        // test("Is populated with the data provided", async () => {
+        test("Is populated with the data provided", async () => {
 
-        //     const { getByTestId } = render(
-        //         <QueryClientProvider client={queryClient}>
-        //             <MemoryRouter>
-        //                 <CollegiateSubredditsEditPage />
-        //             </MemoryRouter>
-        //         </QueryClientProvider>
-        //     );
+            const { getByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <CollegiateSubredditsEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
 
-        //     await waitFor(() => expect(getByTestId("CollegiateSubredditsForm-quarterYYYYQ")).toBeInTheDocument());
+            await waitFor(() => expect(getByTestId("CollegiateSubredditForm-name")).toBeInTheDocument());
 
-        //     const idField = getByTestId("CollegiateSubredditsForm-id");
-        //     const nameField = getByTestId("CollegiateSubredditsForm-name");
-        //     const locationField = getByTestId("CollegiateSubredditsForm-location");
-        //     const subredditField = getByTestId("CollegiateSubredditsForm-subreddit");
-        //     const submitButton = getByTestId("CollegiateSubredditsForm-submit");
+            const idField = getByTestId("CollegiateSubredditForm-id");
+            const nameField = getByTestId("CollegiateSubredditForm-name");
+            const locationField = getByTestId("CollegiateSubredditForm-location");
+            const subredditField = getByTestId("CollegiateSubredditForm-subreddit");
+            const submitButton = getByTestId("CollegiateSubredditForm-submit");
 
-        //     expect(idField).toHaveValue("17");
-        //     expect(nameField).toHaveValue("Pie");
-        //     expect(locationField).toHaveValue("PiesRUs.org");
-        //     expect(subredditField).toHaveValue("Desserts");
-        // });
+            expect(idField).toHaveValue("17");
+            expect(nameField).toHaveValue("Pie");
+            expect(locationField).toHaveValue("PiesRUs.org");
+            expect(subredditField).toHaveValue("Desserts");
+        });
+        test("Changes when you click Update", async () => {
+            const { getByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <CollegiateSubredditsEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+
+            await waitFor(() => expect(getByTestId("CollegiateSubredditForm-name")).toBeInTheDocument());
+
+            const idField = getByTestId("CollegiateSubredditForm-id");
+            const nameField = getByTestId("CollegiateSubredditForm-name");
+            const locationField = getByTestId("CollegiateSubredditForm-location");
+            const subredditField = getByTestId("CollegiateSubredditForm-subreddit");
+            const submitButton = getByTestId("CollegiateSubredditForm-submit");
+
+            expect(idField).toHaveValue("17");
+            expect(nameField).toHaveValue("Pie");
+            expect(locationField).toHaveValue("PiesRUs.org");
+            expect(subredditField).toHaveValue("Desserts");
+
+        expect(submitButton).toBeInTheDocument();
+
+        fireEvent.change(nameField, { target: { value: 'Christmas' } })
+        fireEvent.change(locationField, { target: { value: 'Christmas.org' } })
+        fireEvent.change(subredditField, { target: { value: "Holidays" } })
+
+        fireEvent.click(submitButton);
+
+        await waitFor(() => expect(mockToast).toBeCalled);
+        expect(mockToast).toBeCalledWith("CollegiateSubreddit Updated - id: 17 name: Christmas");
+        expect(mockNavigate).toBeCalledWith({ "to": "/collegiatesubreddits/list" });
+
+        expect(axiosMock.history.put.length).toBe(1); // times called
+        expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+        expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
+            name: 'Christmas',
+            location: "Christmas.org",
+            subreddit: "Holidays"
+        })); // posted object
 
        
     });
+});
 });
 
 

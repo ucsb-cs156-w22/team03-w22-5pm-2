@@ -85,10 +85,10 @@ describe("UserTable tests", () => {
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    //uncomment after implementing edit:
-    // const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    // expect(editButton).toBeInTheDocument();
-    // expect(editButton).toHaveClass("btn-primary");
+  
+    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toHaveClass("btn-primary");
 
     //uncomment after implementing delete:
     // const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
@@ -97,30 +97,29 @@ describe("UserTable tests", () => {
 
   });
 
-  //uncomment after implementing edit:
-  // test("Edit button navigates to the edit page for admin user", async () => {
+  test("Edit button navigates to the edit page for admin user", async () => {
 
-  //   const currentUser = currentUserFixtures.adminUser;
+    const currentUser = currentUserFixtures.adminUser;
 
-  //   const { getByText, getByTestId } = render(
-  //     <QueryClientProvider client={queryClient}>
-  //       <MemoryRouter>
-  //         <CollegiateSubredditsTable csr={collegiateSubredditsFixtures.threeCollegiateSubreddits} currentUser={currentUser} />
-  //       </MemoryRouter>
-  //     </QueryClientProvider>
+    const { getByText, getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CollegiateSubredditsTable csr={collegiateSubredditsFixtures.threeCollegiateSubreddits} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
 
-  //   );
+    );
 
-  //   await waitFor(() => { expect(getByTestId(`CollegiateSubredditsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+    await waitFor(() => { expect(getByTestId(`CollegiateSubredditsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
 
-  //   const editButton = getByTestId(`CollegiateSubredditsTable-cell-row-0-col-Edit-button`);
-  //   expect(editButton).toBeInTheDocument();
+    const editButton = getByTestId(`CollegiateSubredditsTable-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
     
-  //   fireEvent.click(editButton);
+    fireEvent.click(editButton);
 
-  //   await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/collegiatesubreddits/edit/1'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/collegiatesubreddits/edit/1'));
 
-  // });
+  });
 
 });
 
