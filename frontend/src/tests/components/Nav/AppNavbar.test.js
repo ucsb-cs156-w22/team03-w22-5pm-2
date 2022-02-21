@@ -309,7 +309,9 @@ describe("AppNavbar tests", () => {
 
     });
 
-test("renders the Earthquake menu correctly for a user", async () => {
+
+
+    test("renders the Earthquakes menu correctly for a user", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
@@ -356,6 +358,7 @@ test("renders the Earthquake menu correctly for a user", async () => {
         await waitFor( () => expect(getByTestId(/appnavbar-earthquakes-create/)).toBeInTheDocument() );
 
     });
+
 });
 
 
