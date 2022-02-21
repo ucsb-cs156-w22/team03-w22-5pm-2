@@ -335,6 +335,7 @@ describe("AppNavbar tests", () => {
 
     });
 
+    
     test("renders the Earthquakes menu correctly for an admin", async () => {
 
         const currentUser = currentUserFixtures.adminUser;
