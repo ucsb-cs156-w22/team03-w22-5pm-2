@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "students")
+@Document(collection = "earthquakes")
 public class Feature {
     @Id
     private String _Id;
