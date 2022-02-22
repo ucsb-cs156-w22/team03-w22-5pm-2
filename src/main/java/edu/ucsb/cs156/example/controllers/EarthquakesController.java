@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @Api(description = "Earthquake info from USGS")
 @RequestMapping("/api/earthquakes")
@@ -50,7 +50,7 @@ public class EarthquakesController extends ApiController {
     // purge delete all
     @ApiOperation(value = "Deleta all posts")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/purge")
+    @DeleteMapping("/purge")
     public Iterable<Feature> purgeEarthquakes() {
         Iterable<Feature> features = earthquakesCollection.findAll();
         earthquakesCollection.deleteAll();
