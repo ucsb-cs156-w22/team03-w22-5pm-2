@@ -39,12 +39,21 @@ public class EarthquakesController extends ApiController {
     @Autowired
     ObjectMapper mapper;
 
-
+    // list all
     @ApiOperation(value = "List all posts")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<Feature> allEarthquakes() {
         Iterable<Feature> features = earthquakesCollection.findAll();
+        return features;
+    }
+    // purge delete all
+    @ApiOperation(value = "Deleta all posts")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/all")
+    public Iterable<Feature> purgeEarthquakes() {
+        Iterable<Feature> features = earthquakesCollection.findAll();
+        earthquakesCollection.deleteAll();
         return features;
     }
 
@@ -73,4 +82,8 @@ public class EarthquakesController extends ApiController {
         
         return ResponseEntity.ok().body(savedFeatures);
     }
+
+
+
+
 }
