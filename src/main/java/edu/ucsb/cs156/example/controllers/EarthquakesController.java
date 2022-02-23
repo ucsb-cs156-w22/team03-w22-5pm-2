@@ -51,10 +51,9 @@ public class EarthquakesController extends ApiController {
     @ApiOperation(value = "Deleta all posts")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/purge")
-    public Iterable<Feature> purgeEarthquakes() {
-        Iterable<Feature> features = earthquakesCollection.findAll();
+    public Object  purgeEarthquakes() {
         earthquakesCollection.deleteAll();
-        return features;
+        return genericMessage("All earthquake records deleted");
     }
 
     @Autowired
