@@ -1,20 +1,28 @@
-import { render } from "@testing-library/react";
+//import { render } from "@testing-library/react";
+
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 
-import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 //mispelt with capital E here also an extra a in earthquake
-import {earthquakesFixtures} from "fixtures/earthquakesFixtures";
+import { earthquakesFixtures } from "fixtures/earthquakesFixtures";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 //maybe delete next line
-import { fireEvent, waitFor } from "@testing-library/react";
+//import { fireEvent, waitFor } from "@testing-library/react";
 
 import mockConsole from "jest-mock-console";
+
+
+
+
+
+
 
 
 const mockToast = jest.fn();
@@ -30,16 +38,26 @@ jest.mock('react-toastify', () => {
 describe("EarthquakesIndexPage tests", () => {
 
 
-    const axiosMock =new AxiosMockAdapter(axios);
-    axiosMock.reset();
-        axiosMock.resetHistory();
-    axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    const axiosMock = new AxiosMockAdapter(axios);
+    const testId = "EarthquakesTable";
+
+    /*
+        axiosMock.reset();
+            axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    */
 
     const setupAdminUser = () => {
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    };
+    const setupUserOnly = () => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     };
 
@@ -58,70 +76,70 @@ describe("EarthquakesIndexPage tests", () => {
         );
     });
 
-});
 
-test("renders without crashing for admin user", () => {
-    setupAdminUser();
-    const queryClient = new QueryClient();
-    axiosMock.onGet("/api/earthquakes/all").reply(200, []);
-    render(
-        <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-                <EarthquakesIndexPage />
-            </MemoryRouter>
-        </QueryClientProvider>
-    );
-
-    test("renders three earthquakes without crashing for regular user", async () => {
-        setupUserOnly();
-        const queryClient = new QueryClient();
-        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.threeEarthquakes);
-        const { getByTestId } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <EarthquakesIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
-
-    });
-
-    test("renders three earthquakes without crashing for admin user", async () => {
+    test("renders without crashing for admin user", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakeFixtures.threeEarthquakes);
-        const { getByTestId } = render(
+        axiosMock.onGet("/api/earthquakes/all").reply(200, []);
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
-    });
-    test("renders empty table when backend unavailable, useronly", async () => {
-        setupUserOnly();
-        const queryClient = new QueryClient();
-        axiosMock.onGet("/api/earthquakes/all").timeout();
-        const restoreConsole = mockConsole();
+        test("renders three earthquakes without crashing for regular user", async () => {
+            setupUserOnly();
+            const queryClient = new QueryClient();
+            axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.threeEarthquakes);
+            const { getByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <EarthquakesIndexPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+            await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+            expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+            expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
-        const { queryByTestId } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <EarthquakesIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
-        const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
-        restoreConsole();
-        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+        });
+
+        test("renders three earthquakes without crashing for admin user", async () => {
+            setupAdminUser();
+            const queryClient = new QueryClient();
+            axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakeFixtures.threeEarthquakes);
+            const { getByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <EarthquakesIndexPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+            await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+            expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+            expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+
+        });
+        test("renders empty table when backend unavailable, useronly", async () => {
+            setupUserOnly();
+            const queryClient = new QueryClient();
+            axiosMock.onGet("/api/earthquakes/all").timeout();
+            const restoreConsole = mockConsole();
+
+            const { queryByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <EarthquakesIndexPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+            await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
+            const errorMessage = console.error.mock.calls[0][0];
+            expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
+            restoreConsole();
+            expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+        });
     });
 });
