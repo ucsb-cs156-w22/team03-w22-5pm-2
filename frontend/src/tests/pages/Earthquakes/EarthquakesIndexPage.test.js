@@ -6,8 +6,8 @@ import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-
-import {EarthquakesFixtures} from "fixtures/earthquakesFixtures";
+//mispelt with capital E here
+import {earthquakesFixtures} from "fixtures/eaarthquakesFixtures";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
@@ -15,7 +15,7 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 
 import mockConsole from "jest-mock-console";
 
-//added this section 2/22
+
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
     const originalModule = jest.requireActual('react-toastify');
@@ -35,7 +35,6 @@ describe("EarthquakesIndexPage tests", () => {
     axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
     axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-//added this section 2/22
     const setupAdminUser = () => {
         axiosMock.reset();
         axiosMock.resetHistory();
