@@ -24,7 +24,7 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
     // Stryker enable all 
 
     // Stryker disable next-line all : TODO try to make a good test for this
-    //const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
+    const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
 
 
     const columns = [
@@ -49,8 +49,7 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
-    
-    //     //columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
     } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
