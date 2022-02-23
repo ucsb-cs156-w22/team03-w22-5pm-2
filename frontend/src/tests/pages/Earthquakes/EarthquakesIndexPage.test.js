@@ -47,9 +47,7 @@ describe("EarthquakesIndexPage tests", () => {
         setupUserOnly();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/earthquakes/all").reply(200, []);
-/*
-    const queryClient = new QueryClient();
-    test("renders without crashing", () => {*/
+
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
