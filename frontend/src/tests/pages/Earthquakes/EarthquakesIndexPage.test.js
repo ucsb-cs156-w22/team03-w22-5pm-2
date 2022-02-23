@@ -8,7 +8,6 @@ import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-//mispelt with capital E here also an extra a in earthquake
 import { earthquakesFixtures } from "fixtures/earthquakesFixtures";
 
 import axios from "axios";
@@ -58,7 +57,7 @@ describe("EarthquakesIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <EarthquakesIndexPage />
+                    <StudentsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -95,9 +94,9 @@ describe("EarthquakesIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_Id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-_Id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-2-col-_Id`)).toHaveTextContent("3");
 
     });
 
@@ -113,10 +112,9 @@ describe("EarthquakesIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_Id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-_Id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-2-col-_Id`)).toHaveTextContent("3");
 
     });
 
@@ -142,7 +140,7 @@ describe("EarthquakesIndexPage tests", () => {
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/earthquakes/all");
         restoreConsole();
 
-        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+        expect(queryByTestId(`${testId}-cell-row-0-col-_Id`)).not.toBeInTheDocument();
     });
 
 

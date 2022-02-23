@@ -11,37 +11,73 @@ const earthquakesFixtures = {
             "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci40182560",
             "title": "M 3.9 - 10km NW of Santa Paula, CA"
           },
-          "id": "ci40182560"
+          "id": "1"
         }
-    ],
-    twoEarthquake: [
+      ],
+    twoEarthquakes: [
       {
-        "_Id": "111111111111111111111111",
+        "_Id": "1",
+        "type": "Feature",
+        "properties": {
+          "mag": "3.86",
+          "place": "10km NW of Santa Paula, CA",
+          "time": "1644539102020",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci40182560",
+          "title": "M 3.9 - 10km NW of tester21, CA"
+        },
+        "id": "1"
+      },
+      {
+        "_Id": "2",
         "type": "Feature",
         "properties": {
           "mag": "4.87",
           "place": "11km NW of Santa Paula, CA",
           "time": "2644539102020",
           "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci40182560",
-          "title": "M 3.9 - 11km NW of  tester1, CA"
+          "title": "M 3.9 - 11km NW of  tester22, CA"
         },
-        "id": "ci40182777"
+        "id": "2"
       }
   ] ,
-  threeEarthquake: [
+  threeEarthquakes: [
     {
-      "_Id": "222222222222222222222222",
+      "_Id": "1",
       "type": "Feature",
       "properties": {
         "mag": "4.86",
         "place": "10km NW of Santa Paula, CA",
         "time": "3644539102020",
         "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci40182560",
-        "title": "M 3.9 - 10km NW of  tester2, CA"
+        "title": "M 3.9 - 10km NW of  tester31, CA"
       },
-      "id": "ci40182666"
+      "id": "1"
+    },
+    {
+      "_Id": "2",
+      "type": "Feature",
+      "properties": {
+        "mag": "3.86",
+        "place": "10km NW of Santa Paula, CA",
+        "time": "1644539102020",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci40182560",
+        "title": "M 3.9 - 10km NW of tester32, CA"
+      },
+      "id": "2"
+    },
+    {
+      "_Id": "3",
+      "type": "Feature",
+      "properties": {
+        "mag": "4.87",
+        "place": "11km NW of Santa Paula, CA",
+        "time": "2644539102020",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci40182560",
+        "title": "M 3.9 - 11km NW of  tester33, CA"
+      },
+      "id": "3"
     }
-] 
+]  
 };
       
 
