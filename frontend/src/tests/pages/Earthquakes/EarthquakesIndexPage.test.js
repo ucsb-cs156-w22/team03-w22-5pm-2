@@ -6,8 +6,8 @@ import EarthquakesIndexPage from "main/pages/Earthquakes/EarthquakesIndexPage";
 import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-//mispelt with capital E here
-import {earthquakesFixtures} from "fixtures/eaarthquakesFixtures";
+//mispelt with capital E here also an extra a in earthquake
+import {earthquakesFixtures} from "fixtures/earthquakesFixtures";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
