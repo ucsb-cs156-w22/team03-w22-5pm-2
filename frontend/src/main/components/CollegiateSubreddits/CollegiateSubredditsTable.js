@@ -6,7 +6,7 @@ import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/CollegiateS
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function UCSBDatesTable({ csr, currentUser }) {
+export default function CollegiateSubredditsTable({ csr, currentUser }) {
 
     const navigate = useNavigate();
 
