@@ -139,7 +139,7 @@ describe("UCSBSubjectsIndexPage tests", () => {
         setupAdminUser();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ucsbsubjects/all").reply(200, ucsbSubjectsFixtures.threeDates);
+        axiosMock.onGet("/api/ucsbsubjects/all").reply(200, ucsbSubjectsFixtures.threeSubjects);
         axiosMock.onDelete("/api/ucsbsubjects").reply(200, "UCSBSubject with id 1 deleted");
 
 
