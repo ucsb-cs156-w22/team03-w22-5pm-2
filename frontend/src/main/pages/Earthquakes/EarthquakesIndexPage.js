@@ -7,7 +7,7 @@ import { useCurrentUser } from 'main/utils/currentUser'
 
 export default function EarthquakesIndexPage() {
   const currentUser = useCurrentUser();
-  const { data: csr, error: _error, status: _status } = useBackend(
+  const { data: subjects, error: _error, status: _status } = useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
       ["/api/earthquakes/all"], { method: "GET", url: "/api/earthquakes/all" }, []
     );
@@ -16,7 +16,7 @@ export default function EarthquakesIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         <h1>Earthquakes</h1>
-        <EarthquakesTable csr={csr} currentUser={currentUser} />
+        <EarthquakesTable subjects={subjects} currentUser={currentUser} />
       </div>
     </BasicLayout>
   )

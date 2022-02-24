@@ -57,7 +57,7 @@ describe("EarthquakesIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <StudentsIndexPage />
+                    <EarthquakesIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -84,7 +84,7 @@ describe("EarthquakesIndexPage tests", () => {
     test("renders three earthquakes without crashing for regular user", async () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.threeCollegiateSubreddits);
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.threeEarthquakes);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -97,7 +97,6 @@ describe("EarthquakesIndexPage tests", () => {
         await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_Id`)).toHaveTextContent("1"); });
         expect(getByTestId(`${testId}-cell-row-1-col-_Id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-2-col-_Id`)).toHaveTextContent("3");
-
     });
 
     test("renders three earthquakes without crashing for admin user", async () => {
