@@ -6,7 +6,7 @@ import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/CollegiateS
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function CollegiateSubredditsTable({ csr, currentUser }) {
+export default function UCSBDatesTable({ csr, currentUser }) {
 
     const navigate = useNavigate();
 
@@ -45,7 +45,6 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
             accessor: 'subreddit',
         }
     ];
-
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
