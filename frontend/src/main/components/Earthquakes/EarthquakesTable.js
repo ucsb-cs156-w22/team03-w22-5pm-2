@@ -57,6 +57,8 @@ export default function EarthquakesTable({ subjects, currentUser }) {
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, "EarthquakesTable"));
         columns.push(ButtonColumn("Delete", "danger", deleteCallback, "EarthquakesTable"));
+        //MAYBE not keep. Test 2/25
+        columns.push(ButtonColumn("DeletPurgee", "danger", deleteCallback, "EarthquakesTable"));
     } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
