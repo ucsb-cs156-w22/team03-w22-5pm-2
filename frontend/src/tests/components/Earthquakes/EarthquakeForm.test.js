@@ -34,7 +34,7 @@ describe("EarthquakeForm tests", () => {
         );
         await waitFor(() => expect(getByTestId(/EarthquakeForm-magnitude/)).toBeInTheDocument());
         expect(getByText(/Minimum Magnitude/)).toBeInTheDocument();
-        expect(getByTestId(/EarthquakeForm-magnitude/)).toHaveValue("2.16");
+        expect(getByTestId(/EarthquakeForm-magnitude/)).toHaveValue("3.86");
     });
 
 /*
