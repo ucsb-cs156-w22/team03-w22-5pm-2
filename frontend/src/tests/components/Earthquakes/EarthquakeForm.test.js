@@ -32,9 +32,9 @@ describe("EarthquakeForm tests", () => {
                 <EarthquakeForm initialEarthquake={earthquakesFixtures.oneEarthquake} />
             </Router>
         );
-        await waitFor(() => expect(getByTestId(/EarthquakeForm-magnitude/)).toBeInTheDocument());
+        await waitFor(() => expect(getByTestId(/EarthquakeForm-mag/)).toBeInTheDocument());
         expect(getByText(/Minimum Magnitude/)).toBeInTheDocument();
-        expect(getByTestId(/EarthquakeForm-magnitude/)).toHaveValue("3.86");
+        expect(getByTestId(/EarthquakeForm-mag/)).toHaveValue("3.86");
     });
 
 /*
@@ -88,11 +88,11 @@ describe("EarthquakeForm tests", () => {
         await waitFor(() => expect(getByTestId("EarthquakeForm-distance")).toBeInTheDocument());
 
         const distanceField = getByTestId("EarthquakeForm-distance");
-        const magnitudeField = getByTestId("EarthquakeForm-magnitude");
+        const magField = getByTestId("EarthquakeForm-mag");
         const submitButton = getByTestId("EarthquakeForm-submit");
 
         fireEvent.change(distanceField, { target: { value: '1.1' } });
-        fireEvent.change(magnitudeField, { target: { value: '2.2' } });
+        fireEvent.change(magField, { target: { value: '2.2' } });
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());

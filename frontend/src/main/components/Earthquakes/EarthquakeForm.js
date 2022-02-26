@@ -46,18 +46,18 @@ function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="magnitude">Minimum Magnitude</Form.Label>
+                <Form.Label htmlFor="mag">Minimum Magnitude</Form.Label>
                 <Form.Control
-                    data-testid="EarthquakeForm-magnitude"
-                    id="magnitude"
+                    data-testid="EarthquakeForm-mag"
+                    id="mag"
                     type="text"
-                    isInvalid={Boolean(errors.magnitude)}
-                    {...register("magnitude", {
+                    isInvalid={Boolean(errors.mag)}
+                    {...register("mag", {
                         required: "Minimum Magnitude is required."
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.magnitude?.message}
+                    {errors.mag?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
