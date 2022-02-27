@@ -20,13 +20,9 @@ export default function EarthquakesIndexPage() {
         <BasicLayout>
           <div className="pt-2">
             <h1>Earthquakes</h1>
-            <Button
-                //variant="Secondary"
-                onClick={() => navigate(-1)}
-                data-testid="Purge-cancel"
-            >
-                Purge
-            </Button>
+            <form id="form" action="/api/earthquakes/purge" method="POST">
+              <button name="purge" value="upvote">Purge</button>
+            </form>
 
             <EarthquakesTable subjects={subjects} currentUser={currentUser} />
           </div>
@@ -51,6 +47,12 @@ export default function EarthquakesIndexPage() {
 
 
 /*
+/api/earthquakes/purge
+
+
+<form action="" method="post">
+    <button name="foo" value="upvote">Buttondisplayed</button>
+</form>
 
 <Button
                 type="submit"
@@ -61,7 +63,13 @@ export default function EarthquakesIndexPage() {
 
 
 
-
+<Button
+                //variant="Secondary"
+                onClick={() => navigate(-1)}
+                data-testid="Purge-cancel"
+            >
+                Purge
+            </Button>
 
 
 <form action="" method="post">
