@@ -1,4 +1,4 @@
-import { onDeleteSuccess, cellToAxiosParamsDelete, editCallback } from "main/utils/CollegiateSubredditUtils";
+import { onDeleteSuccess, cellToAxiosParamsDelete, editCallback } from "main/utils/EarthquakeUtils";
 import mockConsole from "jest-mock-console";
 
 const mockToast = jest.fn();
@@ -11,7 +11,7 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("CollegiateSubredditUtils", () => {
+describe("EarthquakeUtils", () => {
 
     describe("onDeleteSuccess", () => {
 
@@ -36,37 +36,21 @@ describe("CollegiateSubredditUtils", () => {
 
         test("It returns the correct params", () => {
             // arrange
-            const cell = { row: { values: { id: 17 } } };
+            const cell = { row: { values: { _Id: 17 } } };
 
             // act
             const result = cellToAxiosParamsDelete(cell);
 
             // assert
             expect(result).toEqual({
-                url: "/api/collegiateSubreddits",
+                url: "/api/earthquakes",
                 method: "DELETE",
-                params: { id: 17 }
+                params: { _Id: 17 }
             });
         });
 
     });
-    // describe("editCallback", () => {
 
-    //     test("It pops up the expected toast", () => {
-    //         // arrange
-    //         const cell = { row: { values: { id: 17, name: "Groundhog Day" } } };
-    //         const expectedToast =  `Edit Callback called on id: 17 name: Groundhog Day`
-
-    //         // act
-    //         const result = editCallback(cell);
-
-    //         // assert
-
-    //         expect(mockToast).toHaveBeenCalledWith(expectedToast);
-
-    //     });
-
-    // });
 });
 
 

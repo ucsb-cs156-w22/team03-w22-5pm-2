@@ -8,10 +8,10 @@ export function onDeleteSuccess(message) {
 
 export function cellToAxiosParamsDelete(cell) {
     return {
-        url: "/api/collegiateSubreddits",
+        url: "/api/earthquakes",
         method: "DELETE",
         params: {
-            id: cell.row.values.id
+            _Id: cell.row.values._Id
         }
     }
 }

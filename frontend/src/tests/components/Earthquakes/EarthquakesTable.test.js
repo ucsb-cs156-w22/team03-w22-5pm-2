@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { collegiateSubredditsFixtures } from "fixtures/collegiateSubredditsFixtures";
-import CollegiateSubredditsTable from "main/components/CollegiateSubreddits/CollegiateSubredditsTable"
+import { earthquakesFixtures } from "fixtures/earthquakesFixtures";
+import EarthquakesTable from "main/components/Earthquakes/EarthquakesTable"
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -13,6 +13,13 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedNavigate
 }));
 
+const mockedMutate = jest.fn();
+
+jest.mock('main/utils/useBackend', () => ({
+    ...jest.requireActual('main/utils/useBackend'),
+    useBackendMutation: () => ({mutate: mockedMutate})
+}));
+
 describe("UserTable tests", () => {
   const queryClient = new QueryClient();
 
@@ -23,7 +30,7 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable csr={[]} currentUser={currentUser} />
+          <EarthquakesTable subjects={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -35,7 +42,7 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable csr={[]} currentUser={currentUser} />
+          <EarthquakesTable subjects={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -48,7 +55,7 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable csr={[]} currentUser={currentUser} />
+          <EarthquakesTable subjects={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -62,15 +69,15 @@ describe("UserTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable csr={collegiateSubredditsFixtures.threeCollegiateSubreddits} currentUser={currentUser} />
+          <EarthquakesTable subjects={earthquakesFixtures.oneEarthquake} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    const expectedHeaders = ["id", "Name", "Location", "Subreddit"];
-    const expectedFields = ["id", "name", "location", "subreddit"];
-    const testId = "CollegiateSubredditsTable";
+    const expectedHeaders = ["Id", "Title", "Mag", "Place","Time"];
+    const expectedFields = ["_Id", "title", "mag", "place","time"];
+    const testId = "EarthquakesTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = getByText(headerText);
@@ -82,10 +89,8 @@ describe("UserTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+    expect(getByTestId(`${testId}-cell-row-0-col-_Id`)).toHaveTextContent("6213ea946e8cd25c78e6fba5");
 
-  
     const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
@@ -103,22 +108,46 @@ describe("UserTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CollegiateSubredditsTable csr={collegiateSubredditsFixtures.threeCollegiateSubreddits} currentUser={currentUser} />
+          <EarthquakesTable subjects={earthquakesFixtures.oneEarthquake} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    await waitFor(() => { expect(getByTestId(`CollegiateSubredditsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+    await waitFor(() => { expect(getByTestId(`EarthquakesTable-cell-row-0-col-_Id`)).toHaveTextContent("6213ea946e8cd25c78e6fba5"); });
 
-    const editButton = getByTestId(`CollegiateSubredditsTable-cell-row-0-col-Edit-button`);
+    const editButton = getByTestId(`EarthquakesTable-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     
     fireEvent.click(editButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/collegiatesubreddits/edit/1'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/earthquakes/edit/6213ea946e8cd25c78e6fba5'));
 
   });
+
+  test("Delete button calls delete callback", async () => {
+
+    const currentUser = currentUserFixtures.adminUser;
+
+    const { getByText, getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <EarthquakesTable subjects={earthquakesFixtures.oneEarthquake} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+
+    await waitFor(() => { expect(getByTestId(`EarthquakesTable-cell-row-0-col-_Id`)).toHaveTextContent("6213ea946e8cd25c78e6fba5"); });
+
+    const deleteButton = getByTestId(`EarthquakesTable-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    
+    fireEvent.click(deleteButton);
+
+    await waitFor(() => expect(mockedMutate).toHaveBeenCalledTimes(1));
+  });
+
 
 });
 

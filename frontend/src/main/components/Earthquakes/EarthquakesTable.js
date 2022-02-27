@@ -2,16 +2,16 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 // import { toast } from "react-toastify";
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/CollegiateSubredditUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/EarthquakeUtils"
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function CollegiateSubredditsTable({ csr, currentUser }) {
+export default function EarthquakesTable({ subjects, currentUser }) {
 
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/collegiatesubreddits/edit/${cell.row.values.id}`)
+        navigate(`/earthquakes/edit/${cell.row.values._Id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -19,7 +19,7 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/collegiateSubreddits/all"]
+        ["/api/earthquakes/all"]
     );
     // Stryker enable all 
 
@@ -29,35 +29,43 @@ export default function CollegiateSubredditsTable({ csr, currentUser }) {
 
     const columns = [
         {
-            Header: 'id',
-            accessor: 'id', // accessor is the "key" in the data
+            Header: 'Id',
+            accessor: '_Id', // accessor is the "key" in the data
         },
         {
-            Header: 'Name',
-            accessor: 'name',
+            Header: 'Title',
+            accessor: row => <a href={row.properties.url}> {row.properties.title}</a>,
+            id: 'title'
         },
         {
-            Header: 'Location',
-            accessor: 'location',
+            Header: 'Mag',
+            accessor: row => row.properties.mag,
+            id: 'mag'
         },
         {
-            Header: 'Subreddit',
-            accessor: 'subreddit',
+            Header: 'Place',
+            accessor: row => row.properties.place,
+            id: 'place'
+        },
+        {
+            Header: 'Time',
+            accessor: row => row.properties.time,
+            id: 'time'
         }
     ];
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
-        columns.push(ButtonColumn("Edit", "primary", editCallback, "CollegiateSubredditsTable"));
-        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "CollegiateSubredditsTable"));
+        columns.push(ButtonColumn("Edit", "primary", editCallback, "EarthquakesTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "EarthquakesTable"));
     } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
     const memoizedColumns = React.useMemo(() => columns, [columns]);
-    const memoizedCsr = React.useMemo(() => csr, [csr]);
+    const memoizedDates = React.useMemo(() => subjects, [subjects]);
 
     return <OurTable
-        data={memoizedCsr}
+        data={memoizedDates}
         columns={memoizedColumns}
-        testid={"CollegiateSubredditsTable"}
+        testid={"EarthquakesTable"}
     />;
 };
