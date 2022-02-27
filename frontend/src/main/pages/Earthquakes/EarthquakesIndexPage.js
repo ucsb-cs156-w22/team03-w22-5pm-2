@@ -50,6 +50,16 @@ export default function EarthquakesIndexPage() {
 /api/earthquakes/purge
 
 
+
+works but sends to the purge page
+            <form id="form" action="/api/earthquakes/purge" method="POST">
+              <button name="purge" value="upvote">Purge</button>
+            </form>
+
+
+
+
+
 <form action="" method="post">
     <button name="foo" value="upvote">Buttondisplayed</button>
 </form>
