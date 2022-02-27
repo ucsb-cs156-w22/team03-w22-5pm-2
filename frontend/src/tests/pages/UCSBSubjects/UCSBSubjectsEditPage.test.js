@@ -159,34 +159,35 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(relatedDeptCodeField).toHaveValue("relatedDeptCode");
             expect(inactiveField).toHaveValue("inactive");
 
-        expect(submitButton).toBeInTheDocument();
+            expect(submitButton).toBeInTheDocument();
 
-        fireEvent.change(subjectCodeField, { target: { value: 'MATH' } })
-        fireEvent.change(subjectTranslationField, { target: { value: 'subjectTranslation1' } })
-        fireEvent.change(deptCodeField, { target: { value: "deptCode1" } })
-        fireEvent.change(collegeCodeField, { target: { value: "collegeCode1" } })
-        fireEvent.change(relatedDeptCodeField, { target: { value: "relatedDeptCode1" } })
-        fireEvent.change(inactiveField, { target: { value: "inactive1" } })
+            fireEvent.change(subjectCodeField, { target: { value: 'MATH' } })
+            fireEvent.change(subjectTranslationField, { target: { value: 'subjectTranslation1' } })
+            fireEvent.change(deptCodeField, { target: { value: "deptCode1" } })
+            fireEvent.change(collegeCodeField, { target: { value: "collegeCode1" } })
+            fireEvent.change(relatedDeptCodeField, { target: { value: "relatedDeptCode1" } })
+            fireEvent.change(inactiveField, { target: { value: "inactive1" } })
 
-        fireEvent.click(submitButton);
+            fireEvent.click(submitButton);
 
-        await waitFor(() => expect(mockToast).toBeCalled);
-        //expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17 subjectCode: MATH");
-        expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
+            await waitFor(() => expect(mockToast).toBeCalled);
+            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17 subjectCode: MATH");
+            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
 
-        expect(axiosMock.history.put.length).toBe(1); // times called
-        expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
-        expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-            subjectCode: "MATH",
-            subjectTranslation: "subjectTranslation1",
-            deptCode: "deptCode1",
-            collegeCode: "collegeCode1",
-            relatedDeptCode: "relatedDeptCode1",
-            inactive: "inactive1"
-        })); // posted object
+            expect(axiosMock.history.put.length).toBe(1); // times called
+            expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+            expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
+                subjectCode: "MATH",
+                subjectTranslation: "subjectTranslation1",
+                deptCode: "deptCode1",
+                collegeCode: "collegeCode1",
+                relatedDeptCode: "relatedDeptCode1",
+                inactive: "inactive1"
+            })); // posted object
+    
+        });
 
-       
+
     });
-});
 });
 
