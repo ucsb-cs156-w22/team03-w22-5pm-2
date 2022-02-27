@@ -171,8 +171,8 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
-            //expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17");
-            //expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
+            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17");
+            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
