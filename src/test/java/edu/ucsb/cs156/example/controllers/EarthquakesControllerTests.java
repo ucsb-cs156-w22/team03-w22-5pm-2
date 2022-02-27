@@ -165,4 +165,23 @@ public class EarthquakesControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson , responseString);
         }
 
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void api_earthquakes__admin_can_delete_all_earthquake() throws Exception {
+                // arrange
+                mockMvc.perform(post("/api/earthquakes/purge")
+                        .with(csrf()))
+                        .andExpect(status().isOk()).andReturn();
+
+                verify(earthquakesCollection, times(1)).deleteAll();
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void api_earthquakes__user_cannot_delete_all_earthquake() throws Exception {
+                mockMvc.perform(post("/api/earthquakes/purge").with(csrf())).andExpect(status()
+                .is(403)).andReturn();
+        }
+        
+        
 }
