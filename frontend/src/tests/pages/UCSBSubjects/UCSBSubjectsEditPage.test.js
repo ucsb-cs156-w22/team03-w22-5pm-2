@@ -127,9 +127,9 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(subjectCodeField).toHaveValue("CMPCS");
             expect(subjectTranslationField).toHaveValue("subjectTranslation");
             expect(deptCodeField).toHaveValue("deptCode");
-            expect(collegeCodeField).toHaveValue("deptCode");
-            expect(relatedDeptCodeField).toHaveValue("deptCode");
-            expect(inactiveField).toHaveValue("deptCode");
+            expect(collegeCodeField).toHaveValue("collegeCode");
+            expect(relatedDeptCodeField).toHaveValue("relatedDeptCode");
+            expect(inactiveField).toHaveValue("inactive");
         });
         test("Changes when you click Update", async () => {
             const { getByTestId } = render(
@@ -155,9 +155,9 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(subjectCodeField).toHaveValue("CMPCS");
             expect(subjectTranslationField).toHaveValue("subjectTranslation");
             expect(deptCodeField).toHaveValue("deptCode");
-            expect(collegeCodeField).toHaveValue("deptCode");
-            expect(relatedDeptCodeField).toHaveValue("deptCode");
-            expect(inactiveField).toHaveValue("deptCode");
+            expect(collegeCodeField).toHaveValue("collegeCode");
+            expect(relatedDeptCodeField).toHaveValue("relatedDeptCode");
+            expect(inactiveField).toHaveValue("inactive");
 
         expect(submitButton).toBeInTheDocument();
 
