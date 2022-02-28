@@ -18,7 +18,6 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
 
     const navigate = useNavigate();
 
-    const bool_regex = /^(true|false)$/i;
 
     return (
 
