@@ -169,12 +169,12 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.change(deptCodeField, { target: { value: "CSdept" } });
             fireEvent.change(collegeCodeField, { target: { value: "COE" } });
             fireEvent.change(relatedDeptCodeField, { target: { value: "MATH" } });
-            fireEvent.change(inactiveField, { target: { value: false } });
+            fireEvent.change(inactiveField, { target: { value: "false" } });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
             expect(mockToast).toBeCalledWith(
-                "UCSBSubject Updated - id: 17 Subject Translation: CMPCStrans"
+                "UCSBSubject Updated - id: 17 Subject"
             );
             expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
 
