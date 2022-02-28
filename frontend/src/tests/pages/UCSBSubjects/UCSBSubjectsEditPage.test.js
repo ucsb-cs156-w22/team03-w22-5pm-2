@@ -111,7 +111,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             );
 
             await waitFor(() => {
-                expect(getByTestId("UCSBSubjectsForm-subjectCode")).toBeInTheDocument();
+                expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument();
             });
     
             const idField = getByTestId("UCSBSubjectsForm-id");
@@ -145,7 +145,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             );
 
             await waitFor(() => {
-                expect(getByTestId("UCSBSubjectsForm-subjectCode")).toBeInTheDocument();
+                expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument();
             });
 
             const idField = getByTestId("UCSBSubjectsForm-id");
@@ -177,7 +177,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
-            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 1 subject code: 1a");
+            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 1");
             expect(mockNavigate).toBeCalledWith({ "to": "/UCSBSubjects/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
