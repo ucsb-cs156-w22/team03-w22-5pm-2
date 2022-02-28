@@ -76,7 +76,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: false,
+                inactive: "false",
             });
             axiosMock.onPut('/api/ucsbsubjects').reply(200, {
                 id: 17,
@@ -85,7 +85,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: false,
+                inactive: "false",
             });
         });
 
@@ -129,7 +129,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("CSdept");
             expect(collegeCodeField).toHaveValue("COE");
             expect(relatedDeptCodeField).toHaveValue("MATH");
-            expect(inactiveField).not.toBeChecked(false);
+            expect(inactiveField).not.toBeChecked("false");
         });
 
         test("Changes when you click Update", async () => {
