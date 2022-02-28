@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export default function UCSBSubjectsCreatePage() {
 
   const objectToAxiosParams = (ucsbSubject) => ({
-    url: "/api/ucsbsubjects/post",
+    url: "/api/UCSBSubjects/post",
     method: "POST",
     params: {
       subjectCode: ucsbSubject.subjectCode,
@@ -27,7 +27,7 @@ export default function UCSBSubjectsCreatePage() {
     objectToAxiosParams,
      { onSuccess }, 
      // Stryker disable next-line all : hard to set up test for caching
-     ["/api/ucsbsubjects/all"]
+     ["/api/UCSBSubjects/all"]
      );
      const { isSuccess } = mutation
 

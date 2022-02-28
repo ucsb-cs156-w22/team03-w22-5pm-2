@@ -44,14 +44,14 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
 
     @Test
     public void api_ucsbSubject_all__logged_out__returns_403() throws Exception {
-        mockMvc.perform(get("/api/ucsbsubjects/all"))
+        mockMvc.perform(get("/api/UCSBSubjects/all"))
                 .andExpect(status().is(403));
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void api_ucsbSubject_all__user_logged_in__returns_200() throws Exception {
-        mockMvc.perform(get("/api/ucsbsubjects/all"))
+        mockMvc.perform(get("/api/UCSBSubjects/all"))
                 .andExpect(status().isOk());
     }
 
@@ -59,14 +59,14 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
 
     @Test
     public void api_ucsbSubject_post__logged_out__returns_403() throws Exception {
-        mockMvc.perform(post("/api/ucsbsubjects/post"))
+        mockMvc.perform(post("/api/UCSBSubjects/post"))
                 .andExpect(status().is(403));
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void api_ucsbSubject_post__logged_out__returns_200() throws Exception {
-        mockMvc.perform(get("/api/ucsbsubjects/all"))
+        mockMvc.perform(get("/api/UCSBSubjects/all"))
                 .andExpect(status().isOk());
     }
 
@@ -83,7 +83,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
         when(ucsbSubjectRepository.findAll()).thenReturn(expectedUCSBSubjects);
 
         // act
-        MvcResult response = mockMvc.perform(get("/api/ucsbsubjects/all"))
+        MvcResult response = mockMvc.perform(get("/api/UCSBSubjects/all"))
                 .andExpect(status().isOk()).andReturn();
 
         // assert
@@ -113,7 +113,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/ucsbsubjects/post?subjectCode=Test Code&subjectTranslation=Test Translation&deptCode=Test DeptCode&collegeCode=Test CollegeCode&relatedDeptCode=Test RelatedDeptCode&inactive=true")
+                post("/api/UCSBSubjects/post?subjectCode=Test Code&subjectTranslation=Test Translation&deptCode=Test DeptCode&collegeCode=Test CollegeCode&relatedDeptCode=Test RelatedDeptCode&inactive=true")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -137,7 +137,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
         when(ucsbSubjectRepository.findById(eq(7L))).thenReturn(Optional.of(ucsbSubject7));
 
         // act
-        MvcResult response = mockMvc.perform(get("/api/ucsbsubjects?id=7"))
+        MvcResult response = mockMvc.perform(get("/api/UCSBSubjects?id=7"))
                 .andExpect(status().isOk()).andReturn();
 
         // assert
@@ -159,7 +159,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
         when(ucsbSubjectRepository.findById(eq(7L))).thenReturn(Optional.empty());
 
         // act
-        MvcResult response = mockMvc.perform(get("/api/ucsbsubjects?id=7"))
+        MvcResult response = mockMvc.perform(get("/api/UCSBSubjects?id=7"))
                 .andExpect(status().isBadRequest()).andReturn();
 
         // assert
@@ -192,7 +192,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
         when(ucsbSubjectRepository.findById(eq(7L))).thenReturn(Optional.of(ucsbSubject1));
         // act
         MvcResult response = mockMvc.perform(
-                put("/api/ucsbsubjects?id=7")
+                put("/api/UCSBSubjects?id=7")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("utf-8")
                         .content(requestBody)
@@ -218,7 +218,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                put("/api/ucsbsubjects?id=7")
+                put("/api/UCSBSubjects?id=7")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("utf-8")
                         .content(requestBody)
@@ -242,7 +242,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                delete("/api/ucsbsubjects?id=7")
+                delete("/api/UCSBSubjects?id=7")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -261,7 +261,7 @@ public class UCSBSubjectControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                delete("/api/ucsbsubjects?id=7")
+                delete("/api/UCSBSubjects?id=7")
                         .with(csrf()))
                 .andExpect(status().isBadRequest()).andReturn();
 
