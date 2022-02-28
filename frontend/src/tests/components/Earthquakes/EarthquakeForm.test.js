@@ -27,7 +27,7 @@ describe("EarthquakeForm tests", () => {
 
     test("renders correctly when passing in a Earthquake ", async () => {
 
-        var eqQuery = {"distance":"3", "mag":"3.86"};
+        var eqQuery = {"distance":"3", "minMag":"3.86"};
 
         const { getByText, getByTestId } = render(
             <Router  >

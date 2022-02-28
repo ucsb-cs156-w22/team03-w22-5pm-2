@@ -102,7 +102,7 @@ describe("EarthquakesCreatePage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual(
             {
             "distance": "12",
-            "magnitude": "0.9",
+            "minMag": "0.9",
         });
 
 
