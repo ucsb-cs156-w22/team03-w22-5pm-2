@@ -65,7 +65,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
       deptCode: "CSdept",
       collegeCode: "COE",
       relatedDeptCode: "MATH",
-      inactive: "false",
+      inactive: false,
     };
 
     axiosMock.onPost("/api/ucsbsubjects/post").reply(202, ucsbSubject);
@@ -97,7 +97,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
     fireEvent.change(deptCodeField, { target: { value: "CSdept" } });
     fireEvent.change(collegeCodeField, { target: { value: "COE" } });
     fireEvent.change(relatedDeptCodeField, { target: { value: "MATH" } });
-    fireEvent.change(inactiveField, { target: { value: "false" } });
+    fireEvent.change(inactiveField, { target: { value: false } });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
@@ -108,7 +108,7 @@ describe("UCSBSubjectsCreatePage tests", () => {
       deptCode: "CSdept",
       collegeCode: "COE",
       relatedDeptCode: "MATH",
-      inactive: "false",
+      inactive: false,
     });
 
     expect(mockToast).toBeCalledWith(

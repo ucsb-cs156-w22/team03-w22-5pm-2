@@ -18,6 +18,7 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
 
     const navigate = useNavigate();
 
+    const bool_regex = /^(true|false)$/i;
 
     return (
 
@@ -107,19 +108,18 @@ function UCSBSubjectForm({ initialUCSBSubject, submitAction, buttonLabel="Create
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3" >
                 <Form.Label htmlFor="inactive">Inactive</Form.Label>
                 <Form.Control
                     data-testid="UCSBSubjectForm-inactive"
                     id="inactive"
-                    type="text"
-                    isInvalid={Boolean(errors.inactive)}
-                    {...register('inactive', {
-                        required: 'Inactive is required.',
-                    })}
+                    type="boolean"
+                    isInvalid={Boolean(errors.invalid)}
+                    {...register("invalid", { required: true, pattern: bool_regex })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.inactive?.message}
+                    {errors.invalid && 'Inactive is required. '}
+                    {errors.invalid?.type === 'pattern' && 'Inactive must be a boolean'}
                 </Form.Control.Feedback>
             </Form.Group>
             
