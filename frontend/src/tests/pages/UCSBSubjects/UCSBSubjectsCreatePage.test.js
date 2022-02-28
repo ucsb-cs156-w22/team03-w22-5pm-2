@@ -60,11 +60,11 @@ describe("UCSBSubjectsCreatePage tests", () => {
     const queryClient = new QueryClient();
     const ucsbSubject = {
       id: 17,
-      subjectCode: "42069",
-      subjectTranslation: "94206",
-      deptCode: "69420",
-      collegeCode: "06942",
-      relatedDeptCode: "20694",
+      subjectCode: "CS",
+      subjectTranslation: "ComputerScience",
+      deptCode: "COE",
+      collegeCode: "COE",
+      relatedDeptCode: "MATH",
       inactive: false,
     };
 
@@ -92,27 +92,27 @@ describe("UCSBSubjectsCreatePage tests", () => {
     const inactiveField = getByTestId("UCSBSubjectForm-inactive");
     const submitButton = getByTestId("UCSBSubjectForm-submit");
 
-    fireEvent.change(subjectCodeField, { target: { value: "42069" } });
-    fireEvent.change(subjectTranslationField, { target: { value: "94206" } });
-    fireEvent.change(deptCodeField, { target: { value: "69420" } });
-    fireEvent.change(collegeCodeField, { target: { value: "06942" } });
-    fireEvent.change(relatedDeptCodeField, { target: { value: "20694" } });
+    fireEvent.change(subjectCodeField, { target: { value: "CS" } });
+    fireEvent.change(subjectTranslationField, { target: { value: "ComputerScience" } });
+    fireEvent.change(deptCodeField, { target: { value: "COE" } });
+    fireEvent.change(collegeCodeField, { target: { value: "COE" } });
+    fireEvent.change(relatedDeptCodeField, { target: { value: "MATH" } });
     fireEvent.change(inactiveField, { target: { value: false } });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      subjectCode: "42069",
-      subjectTranslation: "94206",
-      deptCode: "69420",
-      collegeCode: "06942",
-      relatedDeptCode: "20694",
+      subjectCode: "CS",
+      subjectTranslation: "ComputerScience",
+      deptCode: "COE",
+      collegeCode: "COE",
+      relatedDeptCode: "MATH",
       inactive: false,
     });
 
     expect(mockToast).toBeCalledWith(
-      "New UCSBSubject Created - id: 17 Subject Translation: 94206"
+      "New UCSBSubject Created - id: 17 Subject Translation: ComputerScience"
     );
     expect(mockNavigate).toBeCalledWith({ to: "/ucsbsubjects/list" });
   });

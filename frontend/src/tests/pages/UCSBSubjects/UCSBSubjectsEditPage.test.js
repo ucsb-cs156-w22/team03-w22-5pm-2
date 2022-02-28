@@ -71,20 +71,20 @@ describe("UCSBSubjectsEditPage tests", () => {
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
             axiosMock.onGet("/api/UCSBSubjects", { params: { id: 17 } }).reply(200, {
                 id: 17,
-                subjectCode: "42069",
-                subjectTranslation: "94206",
-                deptCode: "69420",
-                collegeCode: "06942",
-                relatedDeptCode: "20694",
+                subjectCode: "CS",
+                subjectTranslation: "ComputerScience",
+                deptCode: "COE",
+                collegeCode: "COE",
+                relatedDeptCode: "MATH",
                 inactive: false,
             });
             axiosMock.onPut('/api/UCSBSubjects').reply(200, {
                 id: 17,
-                subjectCode: "42069",
-                subjectTranslation: "94206",
-                deptCode: "69420",
-                collegeCode: "06942",
-                relatedDeptCode: "20694",
+                subjectCode: "CS",
+                subjectTranslation: "ComputerScience",
+                deptCode: "COE",
+                collegeCode: "COE",
+                relatedDeptCode: "MATH",
                 inactive: false,
             });
         });
@@ -124,11 +124,11 @@ describe("UCSBSubjectsEditPage tests", () => {
             const submitButton = getByTestId("UCSBSubjectForm-submit");
 
             expect(idField).toHaveValue("17");
-            expect(subjectCodeField).toHaveValue("42069");
-            expect(subjectTranslationField).toHaveValue("94206");
-            expect(deptCodeField).toHaveValue("69420");
-            expect(collegeCodeField).toHaveValue("06942");
-            expect(relatedDeptCodeField).toHaveValue("20694");
+            expect(subjectCodeField).toHaveValue("CS");
+            expect(subjectTranslationField).toHaveValue("ComputerScience");
+            expect(deptCodeField).toHaveValue("COE");
+            expect(collegeCodeField).toHaveValue("COE");
+            expect(relatedDeptCodeField).toHaveValue("MATH");
             expect(inactiveField).not.toBeChecked(false);
         });
 
@@ -155,20 +155,20 @@ describe("UCSBSubjectsEditPage tests", () => {
             const submitButton = getByTestId("UCSBSubjectForm-submit");
 
             expect(idField).toHaveValue("17");
-            expect(subjectCodeField).toHaveValue("42069");
-            expect(subjectTranslationField).toHaveValue("94206");
-            expect(deptCodeField).toHaveValue("69420");
-            expect(collegeCodeField).toHaveValue("06942");
-            expect(relatedDeptCodeField).toHaveValue("20694");
+            expect(subjectCodeField).toHaveValue("CS");
+            expect(subjectTranslationField).toHaveValue("ComputerScience");
+            expect(deptCodeField).toHaveValue("COE");
+            expect(collegeCodeField).toHaveValue("COE");
+            expect(relatedDeptCodeField).toHaveValue("PHYS");
             expect(inactiveField).not.toBeChecked();
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(subjectCodeField, { target: { value: "42069" } });
-            fireEvent.change(subjectTranslationField, { target: { value: "94206" } });
-            fireEvent.change(deptCodeField, { target: { value: "69420" } });
-            fireEvent.change(collegeCodeField, { target: { value: "06942" } });
-            fireEvent.change(relatedDeptCodeField, { target: { value: "20694" } });
+            fireEvent.change(subjectCodeField, { target: { value: "CS" } });
+            fireEvent.change(subjectTranslationField, { target: { value: "ComputerScience" } });
+            fireEvent.change(deptCodeField, { target: { value: "COE" } });
+            fireEvent.change(collegeCodeField, { target: { value: "COE" } });
+            fireEvent.change(relatedDeptCodeField, { target: { value: "PHYS" } });
             fireEvent.change(inactiveField, { target: { value: false } });
             fireEvent.click(submitButton);
 
@@ -181,11 +181,11 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                subjectCode: "42069",
-                subjectTranslation: "94206",
-                deptCode: "69420",
-                collegeCode: "06942",
-                relatedDeptCode: "20694",
+                subjectCode: "CS",
+                subjectTranslation: "ComputerScience",
+                deptCode: "COE",
+                collegeCode: "COE",
+                relatedDeptCode: "PHYS",
                 inactive: false,
             })); // posted object
 
