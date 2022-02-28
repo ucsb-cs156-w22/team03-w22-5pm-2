@@ -98,17 +98,20 @@ describe("UCSBSubjectsCreatePage tests", () => {
     fireEvent.change(collegeCodeField, { target: { value: "COE" } });
     fireEvent.change(relatedDeptCodeField, { target: { value: "MATH" } });
     fireEvent.change(inactiveField, { target: { value: "false" } });
+
+    expect(submitButton).toBeInTheDocument();
+
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      subjectCode: "CMPCS",
-      subjectTranslation: "CMPCStrans",
-      deptCode: "CSdept",
-      collegeCode: "COE",
-      relatedDeptCode: "MATH",
-      inactive: "false",
+      "subjectCode" : "CMPCS",
+      "subjectTranslation" : "CMPCStrans",
+      "deptCode" : "CSdept",
+      "collegeCode" : "COE",
+      "relatedDeptCode" : "MATH",
+      "inactive" : "false"
     });
 
     expect(mockToast).toBeCalledWith(
