@@ -143,6 +143,53 @@ describe("EarthquakesIndexPage tests", () => {
     });
 
 
+    test("test what happens when you click purge, admin", async () => {
+
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.threeEarthquakes);
+        axiosMock.onPost("/api/earthquakes/purge").reply(200, "Earthquakes have been purged");
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`Earthquakes-Purge-Button`)).toBeInTheDocument(); });
+
+        const deleteButton = getByTestId(`Earthquakes-Purge-Button`);
+        expect(deleteButton).toBeInTheDocument();
+        fireEvent.click(deleteButton);
+        
+        await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+        expect(mockToast).toBeCalledWith("Earthquakes have been purged");
+
+    });
+
+
+    test("test purge button, not admin", async () => {
+
+        setupUserOnly();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/earthquakes/all").reply(200, earthquakesFixtures.threeEarthquakes);
+
+        const { getByTestId, queryByText  } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <EarthquakesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-_Id`)).toHaveTextContent("1"); });
+        expect(queryByText (/Purge/)).not.toBeInTheDocument();
+    });
+
+
+
 
 
 /*
