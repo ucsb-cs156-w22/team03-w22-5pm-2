@@ -63,7 +63,7 @@ public class EarthquakesController extends ApiController {
     // purge delete all
     @ApiOperation(value = "Deleta all posts")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/purge")
+    @PostMapping("/purge")
     public void purgeEarthquakes() throws JsonProcessingException{
         earthquakesCollection.deleteAll();
     }
