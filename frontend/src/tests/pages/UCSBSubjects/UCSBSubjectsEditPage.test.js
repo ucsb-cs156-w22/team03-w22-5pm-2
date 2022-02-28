@@ -76,7 +76,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: "false",
+                inactive: false,
             });
             axiosMock.onPut('/api/ucsbsubjects').reply(200, {
                 id: 17,
@@ -85,7 +85,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: "false",
+                inactive: false,
             });
         });
 
@@ -129,7 +129,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("CSdept");
             expect(collegeCodeField).toHaveValue("COE");
             expect(relatedDeptCodeField).toHaveValue("MATH");
-            expect(inactiveField).not.toBeChecked("false");
+            expect(inactiveField).not.toBeChecked(false);
         });
 
         test("Changes when you click Update", async () => {
@@ -169,12 +169,12 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.change(deptCodeField, { target: { value: "CSdept" } });
             fireEvent.change(collegeCodeField, { target: { value: "COE" } });
             fireEvent.change(relatedDeptCodeField, { target: { value: "MATH" } });
-            fireEvent.change(inactiveField, { target: { value: "false" } });
+            fireEvent.change(inactiveField, { target: { value: false } });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
             expect(mockToast).toBeCalledWith(
-                "UCSBSubject Updated - id: 17 Subject"
+                "UCSBSubject Updated - id: 17"
             );
             expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
 
@@ -186,7 +186,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: "false",
+                inactive: false,
             })); // posted object
 
         });
