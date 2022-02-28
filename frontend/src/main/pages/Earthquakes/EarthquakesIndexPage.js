@@ -4,7 +4,8 @@ import { useBackend, useBackendMutation} from 'main/utils/useBackend';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import EarthquakesTable from 'main/components/Earthquakes/EarthquakesTable';
 import { hasRole, useCurrentUser } from 'main/utils/currentUser'
-import { Button, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 export default function EarthquakesIndexPage() {
   const currentUser = useCurrentUser();
@@ -36,7 +37,13 @@ export default function EarthquakesIndexPage() {
             <div className="pt-2">
                 <h1>Earthquakes</h1>
                 <EarthquakesTable subjects={subjects} currentUser={currentUser} />
-                <Button variant = 'danger' onClick={deleteCallback}>Purge</Button>
+                <Button 
+                    variant = 'danger' 
+                    onClick={deleteCallback}
+                    data-testid="Earthquakes-Purge-Button"
+                >
+                    Purge
+                </Button>
             </div>
             </BasicLayout>
         )
