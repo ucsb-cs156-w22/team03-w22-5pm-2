@@ -1,14 +1,51 @@
+import React from 'react';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import EarthquakeForm from "main/components/Earthquakes/EarthquakeForm";
+import { Navigate } from 'react-router-dom'
+import { useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
+import { useBackend } from 'main/utils/useBackend';
 
 export default function EarthquakesCreatePage() {
+
+  const objectToAxiosParams = (earthquake) => ({
+    url: "/api/earthquakes/retrieve",
+    method: "POST",
+    params: {
+      distance: earthquake.distance,
+      magnitude: earthquake.mag
+    }
+  });
+
+  const onSuccess = (earthquake) => {
+    toast(`${earthquake.length} Earthquakes retrieved`);
+  }
+
+  const mutation = useBackendMutation(
+    objectToAxiosParams,
+     { onSuccess }, 
+     // Stryker disable next-line all : hard to set up test for caching
+     ["/api/earthquakes/retrieve"]
+     );
+
+  const { isSuccess } = mutation
+
+  const onSubmit = async (data) => {
+    mutation.mutate(data);
+  }
+
+  if (isSuccess) {
+    return <Navigate to="/earthquakes/list" />
+  }
+
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Earthquakes</h1>
-        <p>
-          This is where the create page will go
-        </p>
+        <h1>Retrieve Earthquakes</h1>
+
+        <EarthquakeForm submitAction={onSubmit} />
+
       </div>
     </BasicLayout>
-  )
+  );
 }
