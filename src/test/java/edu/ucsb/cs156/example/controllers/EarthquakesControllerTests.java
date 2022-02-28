@@ -169,7 +169,7 @@ public class EarthquakesControllerTests extends ControllerTestCase {
         @Test
         public void api_earthquakes__admin_can_delete_all_earthquake() throws Exception {
                 // arrange
-                mockMvc.perform(post("/api/earthquakes/purge")
+                mockMvc.perform(delete("/api/earthquakes/purge")
                         .with(csrf()))
                         .andExpect(status().isOk()).andReturn();
 
@@ -179,7 +179,7 @@ public class EarthquakesControllerTests extends ControllerTestCase {
         @WithMockUser(roles = { "USER" })
         @Test
         public void api_earthquakes__user_cannot_delete_all_earthquake() throws Exception {
-                mockMvc.perform(post("/api/earthquakes/purge").with(csrf())).andExpect(status()
+                mockMvc.perform(delete("/api/earthquakes/purge").with(csrf())).andExpect(status()
                 .is(403)).andReturn();
         }
         
