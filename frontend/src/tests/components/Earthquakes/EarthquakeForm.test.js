@@ -27,9 +27,11 @@ describe("EarthquakeForm tests", () => {
 
     test("renders correctly when passing in a Earthquake ", async () => {
 
+        var eqQuery = {"distance":"3", "mag":"3.86"};
+
         const { getByText, getByTestId } = render(
             <Router  >
-                <EarthquakeForm initialEarthquake={earthquakesFixtures.oneEarthquake} />
+                <EarthquakeForm initialEarthquake={eqQuery} />
             </Router>
         );
         await waitFor(() => expect(getByTestId(/EarthquakeForm-mag/)).toBeInTheDocument());
