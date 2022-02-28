@@ -12,8 +12,8 @@ export default function EarthquakesCreatePage() {
     url: "/api/earthquakes/retrieve",
     method: "POST",
     params: {
-      distance: earthquake.distance,
-      minMag: earthquake.magnitude
+      distance: 10,
+      minMag: 1.2
     }
   });
 
