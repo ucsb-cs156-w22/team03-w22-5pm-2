@@ -76,7 +76,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: "false",
+                inactive: "false"
             });
             axiosMock.onPut('/api/ucsbsubjects').reply(200, {
                 id: 17,
@@ -85,7 +85,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: "false",
+                inactive: "false"
             });
         });
 
@@ -155,7 +155,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             const submitButton = getByTestId("UCSBSubjectForm-submit");
 
             expect(idField).toHaveValue("17");
-            expect(subjectCodeField).toHaveValue("CMPCS");
+            expect(subjectCodeField).toHaveValue("PHYS");
             expect(subjectTranslationField).toHaveValue("CMPCStrans");
             expect(deptCodeField).toHaveValue("CSdept");
             expect(collegeCodeField).toHaveValue("COE");
@@ -164,7 +164,7 @@ describe("UCSBSubjectsEditPage tests", () => {
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(subjectCodeField, { target: { value: "CMPCS" } });
+            fireEvent.change(subjectCodeField, { target: { value: "PHYS" } });
             fireEvent.change(subjectTranslationField, { target: { value: "CMPCStrans" } });
             fireEvent.change(deptCodeField, { target: { value: "CSdept" } });
             fireEvent.change(collegeCodeField, { target: { value: "COE" } });
@@ -181,12 +181,12 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                subjectCode: "CMPCS",
+                subjectCode: "PHYS",
                 subjectTranslation: "CMPCStrans",
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: "false",
+                //inactive: "false"
             })); // posted object
 
         });
