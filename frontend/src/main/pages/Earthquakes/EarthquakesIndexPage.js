@@ -15,14 +15,41 @@ export default function EarthquakesIndexPage() {
 
 
 
+    const objectToAxiosParams = (obj) => ({
+      url: "/api/earthquakes/purge",
+      method: "POST",
+
+    });
+
+    const onSuccess = (obj) => {
+      toast(`Earthquakes Purged`);
+    }
+
+    const mutation = useBackendMutation(
+      objectToAxiosParams,
+       { onSuccess }, 
+       // Stryker disable next-line all : hard to set up test for caching
+       ["/api/earthquakes/purge"]
+       );
+  
+       const { isSuccess } = mutation
+
+
+
+       const onSubmit = async (data) => {
+        mutation.mutate(data);
+      }
+      if (isSuccess) {
+        return <Navigate to="/earthquakes/list" />
+      }
+
     if(hasRole(currentUser, "ROLE_ADMIN")){
       return (
         <BasicLayout>
           <div className="pt-2">
             <h1>Earthquakes</h1>
-            <form id="form" action="/api/earthquakes/purge" method="POST">
-              <button name="purge" value="upvote">Purge</button>
-            </form>
+          
+            <EarthquakesForm submitAction={onSubmit} />
 
             <EarthquakesTable subjects={subjects} currentUser={currentUser} />
           </div>
@@ -48,6 +75,12 @@ export default function EarthquakesIndexPage() {
 
 /*
 /api/earthquakes/purge
+
+
+<form id="form" action="/api/earthquakes/purge" method="POST">
+              <button name="purge" value="upvote">Purge</button>
+            </form>
+
 
 
 
