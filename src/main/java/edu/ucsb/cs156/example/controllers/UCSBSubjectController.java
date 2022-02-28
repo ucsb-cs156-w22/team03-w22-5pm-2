@@ -105,26 +105,47 @@ public class UCSBSubjectController extends ApiController {
         return savedUcsbSubject;
     }
 
-    @ApiOperation(value = "Update a single UCSBSubject")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    // @ApiOperation(value = "Update a single UCSBSubject")
+    // @PreAuthorize("hasRole('ROLE_USER')")
+    // @PutMapping("")
+    // public ResponseEntity<String> putUCSBSubjectById(
+    //         @ApiParam("id") @RequestParam Long id,
+    //         @RequestBody @Valid UCSBSubject incomingUCSBSubject) throws JsonProcessingException {
+    //   //  loggingService.logMethod();
+
+    //     UCSBSubjectOrError soe = new UCSBSubjectOrError(id);
+
+    //     soe = doesUCSBSubjectExist(soe);
+    //     if (soe.error != null) {
+    //         return soe.error;
+    //     }
+    //     incomingUCSBSubject.setId(id);
+    //     ucsbSubjectRepository.save(incomingUCSBSubject);
+
+    //     String body = mapper.writeValueAsString(incomingUCSBSubject);
+    //     return ResponseEntity.ok().body(body);
+    // }
+    @ApiOperation(value = "Update a single UCSB Subject")
+    @PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public ResponseEntity<String> putUCSBSubjectById(
+    public ResponseEntity<String> putSubjectById(
             @ApiParam("id") @RequestParam Long id,
-            @RequestBody @Valid UCSBSubject incomingUCSBSubject) throws JsonProcessingException {
-      //  loggingService.logMethod();
+            @RequestBody @Valid UCSBSubject incomingSubject) throws JsonProcessingException {
+        Optional<UCSBSubject> optionalSubject = ucsbSubjectRepository.findById(id);
 
-        UCSBSubjectOrError soe = new UCSBSubjectOrError(id);
-
-        soe = doesUCSBSubjectExist(soe);
-        if (soe.error != null) {
-            return soe.error;
+        if (optionalSubject.isEmpty()) {
+            return ResponseEntity
+            .badRequest()
+            .body(String.format("Subject with id %d not found", id)); 
         }
-        incomingUCSBSubject.setId(id);
-        ucsbSubjectRepository.save(incomingUCSBSubject);
-
-        String body = mapper.writeValueAsString(incomingUCSBSubject);
-        return ResponseEntity.ok().body(body);
+        else{
+            incomingSubject.setId(id);
+            ucsbSubjectRepository.save(incomingSubject);    
+            String body = mapper.writeValueAsString(incomingSubject);
+            return ResponseEntity.ok().body(body);
+        }
     }
+
     
     @ApiOperation(value = "Delete a UCSBSubject")
     @PreAuthorize("hasRole('ROLE_USER')")
