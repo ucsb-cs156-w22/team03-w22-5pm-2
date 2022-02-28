@@ -26,7 +26,7 @@ jest.mock('react-router-dom', () => {
         __esModule: true,
         ...originalModule,
         useParams: () => ({
-            id: 17
+            id: 1
         }),
         Navigate: (x) => { mockNavigate(x); return null; }
     };
@@ -34,7 +34,7 @@ jest.mock('react-router-dom', () => {
 
 describe("UCSBSubjectsEditPage tests", () => {
 
-    describe("when the backend doesn't return a subject", () => {
+    describe("when the backend doesn't return a todo", () => {
 
         const axiosMock = new AxiosMockAdapter(axios);
 
@@ -43,7 +43,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/ucsbsubjects", { params: { id: 17 } }).timeout();
+            axiosMock.onGet("/api/UCSBsubjects", { params: { id: 1 } }).timeout();
         });
 
         const queryClient = new QueryClient();
@@ -56,10 +56,9 @@ describe("UCSBSubjectsEditPage tests", () => {
                 </QueryClientProvider>
             );
             await waitFor(() => expect(getByText("Edit UCSBSubject")).toBeInTheDocument());
-            expect(queryByTestId("UCSBSubjectForm-subjectCode")).not.toBeInTheDocument();
+            expect(queryByTestId("UCSBSubjectsForm-subjectCode")).not.toBeInTheDocument();
         });
     });
-
 
     describe("tests where backend is working normally", () => {
 
@@ -70,23 +69,23 @@ describe("UCSBSubjectsEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/ucsbsubjects", { params: { id: 17 } }).reply(200, {
-                id: 17,
-                subjectCode: "CMPCS",
-                subjectTranslation: "subjectTranslation",
-                deptCode: "deptCode",
-                collegeCode: "collegeCode",
-                relatedDeptCode: "relatedDeptCode",
-                inactive: "inactive"
+            axiosMock.onGet("/api/UCSBSubjects", { params: { id: 17 } }).reply(200, {
+                id: 1,
+                subjectCode: "1A",
+                subjectTranslation: "1B",
+                deptCode: "1C",
+                collegeCode: "1D",
+                relatedDeptCode: "1E",
+                inactive: "true"
             });
-            axiosMock.onPut('/api/ucsbsubjects').reply(200, {
-                id: "17",
-                subjectCode: "MATH",
-                subjectTranslation: "subjectTranslation1",
-                deptCode: "deptCode1",
-                collegeCode: "collegeCode1",
-                relatedDeptCode: "relatedDeptCode1",
-                inactive: "inactive1"
+            axiosMock.onPut('/api/ucsbdates').reply(200, {
+                id: "1",
+                subjectCode: "1a",
+                subjectTranslation: "1b",
+                deptCode: "1c",
+                collegeCode: "1d",
+                relatedDeptCode: "1e",
+                inactive: "false"
             });
         });
 
@@ -101,7 +100,6 @@ describe("UCSBSubjectsEditPage tests", () => {
             );
         });
 
-
         test("Is populated with the data provided", async () => {
 
             const { getByTestId } = render(
@@ -112,26 +110,32 @@ describe("UCSBSubjectsEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument());
+            await waitFor(() => {
+                expect(getByTestId("UCSBSubjectsForm-subjectCode")).toBeInTheDocument();
+            });
+    
+            const idField = getByTestId("UCSBSubjectsForm-id");
+            const subjectCodeField = getByTestId("UCSBSubjectsForm-subjectCode");
+            const subjectTranslationField = getByTestId("UCSBSubjectsForm-subjectTranslation");
+            const deptCodeField = getByTestId("UCSBSubjectsForm-deptCode");
+            const collegeCodeField = getByTestId("UCSBSubjectsForm-collegeCode");
+            const relatedDeptCodeField = getByTestId("UCSBSubjectsForm-relatedDeptCode");
+            const inactiveFieled=getByTestId("UCSBSubjectsForm-inactive");
+            const submitButton = getByTestId("UCSBSubjectsForm-submit");
 
-            const idField = getByTestId("UCSBSubjectForm-id");
-            const subjectCodeField = getByTestId("UCSBSubjectForm-subjectCode");
-            const subjectTranslationField = getByTestId("UCSBSubjectForm-subjectTranslation");
-            const deptCodeField = getByTestId("UCSBSubjectForm-deptCode");
-            const collegeCodeField = getByTestId("UCSBSubjectForm-collegeCode");
-            const relatedDeptCodeField = getByTestId("UCSBSubjectForm-relatedDeptCode");
-            const inactiveField = getByTestId("UCSBSubjectForm-inactive");
-            const submitButton = getByTestId("UCSBSubjectForm-submit");
-
-            expect(idField).toHaveValue("17");
-            expect(subjectCodeField).toHaveValue("CMPCS");
-            expect(subjectTranslationField).toHaveValue("subjectTranslation");
-            expect(deptCodeField).toHaveValue("deptCode");
-            expect(collegeCodeField).toHaveValue("collegeCode");
-            expect(relatedDeptCodeField).toHaveValue("relatedDeptCode");
-            expect(inactiveField).toHaveValue("inactive");
+            expect(idField).toHaveValue("1");
+            expect(subjectCodeField).toHaveValue("1A");
+            expect(subjectTranslationField).toHaveValue("1B");
+            expect(deptCodeField).toHaveValue("1C"); 
+            expect(collegeCodeField).toHaveValue("1D");
+            expect(relatedDeptCodeField).toHaveValue("1E");
+            expect(inactiveFieled).toHaveValue("true");
         });
+
         test("Changes when you click Update", async () => {
+
+
+
             const { getByTestId } = render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
@@ -140,54 +144,56 @@ describe("UCSBSubjectsEditPage tests", () => {
                 </QueryClientProvider>
             );
 
-            await waitFor(() => expect(getByTestId("UCSBSubjectForm-subjectCode")).toBeInTheDocument());
+            await waitFor(() => {
+                expect(getByTestId("UCSBSubjectsForm-subjectCode")).toBeInTheDocument();
+            });
 
-            const idField = getByTestId("UCSBSubjectForm-id");
-            const subjectCodeField = getByTestId("UCSBSubjectForm-subjectCode");
-            const subjectTranslationField = getByTestId("UCSBSubjectForm-subjectTranslation");
-            const deptCodeField = getByTestId("UCSBSubjectForm-deptCode");
-            const collegeCodeField = getByTestId("UCSBSubjectForm-collegeCode");
-            const relatedDeptCodeField = getByTestId("UCSBSubjectForm-relatedDeptCode");
-            const inactiveField = getByTestId("UCSBSubjectForm-inactive");
-            const submitButton = getByTestId("UCSBSubjectForm-submit");
+            const idField = getByTestId("UCSBSubjectsForm-id");
+            const subjectCodeField = getByTestId("UCSBSubjectsForm-subjectCode");
+            const subjectTranslationField = getByTestId("UCSBSubjectsForm-subjectTranslation");
+            const deptCodeField = getByTestId("UCSBSubjectsForm-deptCode");
+            const collegeCodeField = getByTestId("UCSBSubjectsForm-collegeCode");
+            const relatedDeptCodeField = getByTestId("UCSBSubjectsForm-relatedDeptCode");
+            const inactiveFieled=getByTestId("UCSBSubjectsForm-inactive");
+            const submitButton = getByTestId("UCSBSubjectsForm-submit");
 
-            expect(idField).toHaveValue("17");
-            expect(subjectCodeField).toHaveValue("CMPCS");
-            expect(subjectTranslationField).toHaveValue("subjectTranslation");
-            expect(deptCodeField).toHaveValue("deptCode");
-            expect(collegeCodeField).toHaveValue("collegeCode");
-            expect(relatedDeptCodeField).toHaveValue("relatedDeptCode");
-            expect(inactiveField).toHaveValue("inactive");
+            expect(idField).toHaveValue("1");
+            expect(subjectCodeField).toHaveValue("1A");
+            expect(subjectTranslationField).toHaveValue("1B");
+            expect(deptCodeField).toHaveValue("1C"); 
+            expect(collegeCodeField).toHaveValue("1D");
+            expect(relatedDeptCodeField).toHaveValue("1E");
+            expect(inactiveFieled).toHaveValue("true");
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(subjectCodeField, { target: { value: 'MATH' } })
-            fireEvent.change(subjectTranslationField, { target: { value: 'subjectTranslation1' } })
-            fireEvent.change(deptCodeField, { target: { value: "deptCode1" } })
-            fireEvent.change(collegeCodeField, { target: { value: "collegeCode1" } })
-            fireEvent.change(relatedDeptCodeField, { target: { value: "relatedDeptCode1" } })
-            fireEvent.change(inactiveField, { target: { value: "inactive1" } })
+            fireEvent.change(subjectCodeField, { target: { value: '1a' } })
+            fireEvent.change(subjectTranslationField, { target: { value: '1b' } })
+            fireEvent.change(deptCodeField, { target: { value: "1c" } })
+            fireEvent.change(collegeCodeField, { target: { value: '1d' } })
+            fireEvent.change(relatedDeptCodeField, { target: { value: '1e' } })
+            fireEvent.change(inactiveFieled, { target: { value: 'false' } })
 
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
-            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 17");
-            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
+            expect(mockToast).toBeCalledWith("UCSBSubject Updated - id: 1 subject code: 1a");
+            expect(mockNavigate).toBeCalledWith({ "to": "/UCSBSubjects/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
-            expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+            expect(axiosMock.history.put[0].params).toEqual({ id: 1 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                subjectCode: "MATH",
-                subjectTranslation: "subjectTranslation1",
-                deptCode: "deptCode1",
-                collegeCode: "collegeCode1",
-                relatedDeptCode: "relatedDeptCode1",
-                inactive: "inactive1"
+                subjectCode: "1a",
+                subjectTranslation: "1b",
+                deptCode: "1c",
+                collegeCode: "1d",
+                relatedDeptCode: "1e",
+                inactive: "false"
             })); // posted object
-    
+
         });
 
-
+       
     });
 });
 
