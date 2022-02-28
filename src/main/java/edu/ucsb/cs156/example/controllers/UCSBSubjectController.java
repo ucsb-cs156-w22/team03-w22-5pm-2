@@ -135,8 +135,8 @@ public class UCSBSubjectController extends ApiController {
 
         if (optionalSubject.isEmpty()) {
             return ResponseEntity
-            .badRequest()
-            .body(String.format("Subject with id %d not found", id)); 
+            .badRequest()   
+            .body(String.format("UCSBSubject with id %d not found", id)); 
         }
         else{
             incomingSubject.setId(id);
