@@ -164,12 +164,12 @@ describe("UCSBSubjectsEditPage tests", () => {
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(subjectCodeField, { target: { value: "PHYS" } });
-            fireEvent.change(subjectTranslationField, { target: { value: "CMPCStrans" } });
-            fireEvent.change(deptCodeField, { target: { value: "CSdept" } });
-            fireEvent.change(collegeCodeField, { target: { value: "COE" } });
-            fireEvent.change(relatedDeptCodeField, { target: { value: "MATH" } });
-            fireEvent.change(inactiveField, { target: { value: "false" } });
+            fireEvent.change(subjectCodeField, { target: { value: 'PHYS' } });
+            fireEvent.change(subjectTranslationField, { target: { value: 'CMPCStrans' } });
+            fireEvent.change(deptCodeField, { target: { value: 'CSdept' } });
+            fireEvent.change(collegeCodeField, { target: { value: 'COE'} });
+            fireEvent.change(relatedDeptCodeField, { target: { value: 'MATH' } });
+            fireEvent.change(inactiveField, { target: { value: 'false'} });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
@@ -186,7 +186,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                //inactive: "false"
+                inactive: "false"
             })); // posted object
 
         });
