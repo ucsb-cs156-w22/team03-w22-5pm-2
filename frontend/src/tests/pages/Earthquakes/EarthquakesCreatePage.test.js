@@ -68,7 +68,7 @@ describe("EarthquakesCreatePage tests", () => {
         const queryClient = new QueryClient();
         const earthquake = {
             distance: 12,
-            mag: 0.9,
+            minMag: 0.9,
             length: 1
         };
 

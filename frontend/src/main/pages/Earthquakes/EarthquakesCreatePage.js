@@ -13,7 +13,7 @@ export default function EarthquakesCreatePage() {
     method: "POST",
     params: {
       distance: earthquake.distance,
-      magnitude: earthquake.minMag
+      minMag: earthquake.minMag
     }
   });
 
