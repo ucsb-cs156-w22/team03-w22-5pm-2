@@ -125,7 +125,10 @@ describe("UserTable tests", () => {
 
   });
 
-  test("Delete button calls delete callback", async () => {
+
+
+  
+  test("Delete button calls delete callback if admind", async () => {
 
     const currentUser = currentUserFixtures.adminUser;
 
