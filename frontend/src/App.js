@@ -107,16 +107,16 @@ function App() {
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
-              <Route exact path="/ucsbsubjects/list" element={<UCSBSubjectsIndexPage />} />
-              <Route exact path="/ucsbsubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
+              <Route exact path="/UCSBSubjects/list" element={<UCSBSubjectsIndexPage />} />
+              <Route exact path="/UCSBSubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
             </>
           )
         }
         {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
-              <Route exact path="/ucsbsubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
-              <Route exact path="/ucsbsubjects/create" element={<UCSBSubjectsCreatePage />} />
+              <Route exact path="/UCSBSubjects/edit/:id" element={<UCSBSubjectsEditPage />} />
+              <Route exact path="/UCSBSubjects/create" element={<UCSBSubjectsCreatePage />} />
             </>
           )
         }

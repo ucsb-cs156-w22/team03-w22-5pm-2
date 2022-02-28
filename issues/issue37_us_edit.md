@@ -3,7 +3,7 @@ Edit for UCSBSubjects
 Look at the edit logic in UCSBDateForm, UCSBDateIndexPage, and UCSBDateEditPage and model your edit logic accordingly.
 
 - [ ] There is a page component for edit
-- [ ] In `App.js` a route is set up to route to the edit page with a param for the id (e.g. `/ucsbsubjects/edit/:id`)
+- [ ] In `App.js` a route is set up to route to the edit page with a param for the id (e.g. `/UCSBSubjects/edit/:id`)
 - [ ] There is a column on the index page that goes to the edit page, but only for admins
 - [ ] When routing to the edit page, the form is pre-filled with the values for that record
 - [ ] Changes to the data are validated with the same validation as data creation

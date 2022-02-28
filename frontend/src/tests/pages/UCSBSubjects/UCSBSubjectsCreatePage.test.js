@@ -114,6 +114,6 @@ describe("UCSBSubjectsCreatePage tests", () => {
     expect(mockToast).toBeCalledWith(
       "New UCSBSubject Created - id: 17 Subject Translation: ComputerScience"
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/ucsbsubjects/list" });
+    expect(mockNavigate).toBeCalledWith({ to: "/UCSBSubjects/list" });
   });
 });

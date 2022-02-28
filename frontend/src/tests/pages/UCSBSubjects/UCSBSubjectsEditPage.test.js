@@ -155,20 +155,20 @@ describe("UCSBSubjectsEditPage tests", () => {
             const submitButton = getByTestId("UCSBSubjectForm-submit");
 
             expect(idField).toHaveValue("17");
-            expect(subjectCodeField).toHaveValue("CS");
-            expect(subjectTranslationField).toHaveValue("ComputerScience");
-            expect(deptCodeField).toHaveValue("COE");
-            expect(collegeCodeField).toHaveValue("COE");
-            expect(relatedDeptCodeField).toHaveValue("PHYS");
+            expect(subjectCodeField).toHaveValue("ART");
+            expect(subjectTranslationField).toHaveValue("art");
+            expect(deptCodeField).toHaveValue("dept");
+            expect(collegeCodeField).toHaveValue("LAS");
+            expect(relatedDeptCodeField).toHaveValue("LIT");
             expect(inactiveField).not.toBeChecked();
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(subjectCodeField, { target: { value: "CS" } });
-            fireEvent.change(subjectTranslationField, { target: { value: "ComputerScience" } });
-            fireEvent.change(deptCodeField, { target: { value: "COE" } });
-            fireEvent.change(collegeCodeField, { target: { value: "COE" } });
-            fireEvent.change(relatedDeptCodeField, { target: { value: "PHYS" } });
+            fireEvent.change(subjectCodeField, { target: { value: "ART" } });
+            fireEvent.change(subjectTranslationField, { target: { value: "art" } });
+            fireEvent.change(deptCodeField, { target: { value: "dept" } });
+            fireEvent.change(collegeCodeField, { target: { value: "LAS" } });
+            fireEvent.change(relatedDeptCodeField, { target: { value: "LIT" } });
             fireEvent.change(inactiveField, { target: { value: false } });
             fireEvent.click(submitButton);
 
@@ -176,17 +176,17 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(mockToast).toBeCalledWith(
                 "UCSBSubject Updated - id: 17"
             );
-            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbsubjects/list" });
+            expect(mockNavigate).toBeCalledWith({ "to": "/UCSBSubjects/list" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                subjectCode: "CS",
-                subjectTranslation: "ComputerScience",
-                deptCode: "COE",
-                collegeCode: "COE",
-                relatedDeptCode: "PHYS",
-                inactive: false,
+                subjectCode: "ART",
+                subjectTranslation: "art",
+                deptCode: "dept",
+                collegeCode: "LAS",
+                relatedDeptCode: "LIT",
+                inactive: "false",
             })); // posted object
 
         });

@@ -36,7 +36,7 @@ export default function UCSBSubjectsCreatePage() {
      }
 
   if (isSuccess) {
-      return <Navigate to="/ucsbsubjects/list" />
+      return <Navigate to="/UCSBSubjects/list" />
   }
 
   return (

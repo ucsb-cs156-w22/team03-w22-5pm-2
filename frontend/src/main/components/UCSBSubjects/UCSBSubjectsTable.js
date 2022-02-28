@@ -11,7 +11,7 @@ export default function UCSBSubjectsTable({ subjects, currentUser }) {
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/ucsbsubjects/edit/${cell.row.values.id}`)
+        navigate(`/UCSBSubjects/edit/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
