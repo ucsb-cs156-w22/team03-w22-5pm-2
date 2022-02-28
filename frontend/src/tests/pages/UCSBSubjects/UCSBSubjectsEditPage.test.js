@@ -76,7 +76,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: false
+                inactive: "false"
             });
             axiosMock.onPut('/api/ucsbsubjects').reply(200, {
                 id: 17,
@@ -85,7 +85,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: true
+                inactive: "true"
             });
         });
 
@@ -129,7 +129,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("CSdept");
             expect(collegeCodeField).toHaveValue("COE");
             expect(relatedDeptCodeField).toHaveValue("MATH");
-            expect(inactiveField).toHaveValue(false);
+            expect(inactiveField).toHaveValue("false");
         });
 
         test("Changes when you click Update", async () => {
@@ -160,7 +160,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("CSdept");
             expect(collegeCodeField).toHaveValue("COE");
             expect(relatedDeptCodeField).toHaveValue("MATH");
-            expect(inactiveField).toHaveValue(false);
+            expect(inactiveField).toHaveValue("false");
 
             expect(submitButton).toBeInTheDocument();
 
@@ -169,7 +169,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.change(deptCodeField, { target: { value: 'CSdept' } });
             fireEvent.change(collegeCodeField, { target: { value: 'COE'} });
             fireEvent.change(relatedDeptCodeField, { target: { value: 'MATH' } });
-            fireEvent.change(inactiveField, { target: { value: true} });
+            fireEvent.change(inactiveField, { target: { value: "true"} });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
@@ -186,7 +186,7 @@ describe("UCSBSubjectsEditPage tests", () => {
                 deptCode: "CSdept",
                 collegeCode: "COE",
                 relatedDeptCode: "MATH",
-                inactive: true
+                inactive: "true"
             })); // posted object
 
         });
