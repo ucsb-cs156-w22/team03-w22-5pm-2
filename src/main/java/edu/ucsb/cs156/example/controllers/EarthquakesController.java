@@ -24,13 +24,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+import java.util.Optional;
 
 @Api(description = "Earthquake info from USGS")
 @RequestMapping("/api/earthquakes")
 @RestController
 @Slf4j
 public class EarthquakesController extends ApiController {
+    public class EarthquakesCollectionOrError {
+        Long id;
+        EarthquakesCollection earthquakesCollection;
+        ResponseEntity<String> error;
+
+        public EarthquakesCollectionOrError(Long id) {
+            this.id = id;
+        }
+    }
 
     @Autowired
     EarthquakesCollection earthquakesCollection;
@@ -39,7 +52,7 @@ public class EarthquakesController extends ApiController {
     @Autowired
     ObjectMapper mapper;
 
-
+    // list all
     @ApiOperation(value = "List all posts")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
@@ -47,6 +60,15 @@ public class EarthquakesController extends ApiController {
         Iterable<Feature> features = earthquakesCollection.findAll();
         return features;
     }
+    // purge delete all
+    @ApiOperation(value = "Deleta all posts")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/purge")
+    public void purgeEarthquakes() throws JsonProcessingException{
+        earthquakesCollection.deleteAll();
+    }
+
+
 
     @Autowired
     EarthquakeQueryService earthquakeQueryService;
