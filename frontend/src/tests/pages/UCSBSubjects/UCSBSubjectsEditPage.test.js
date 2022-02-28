@@ -129,7 +129,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             expect(deptCodeField).toHaveValue("CSdept");
             expect(collegeCodeField).toHaveValue("COE");
             expect(relatedDeptCodeField).toHaveValue("MATH");
-            expect(inactiveField).not.toBeChecked("false");
+            expect(inactiveField).toHaveValue("false");
         });
 
         test("Changes when you click Update", async () => {
@@ -169,7 +169,7 @@ describe("UCSBSubjectsEditPage tests", () => {
             fireEvent.change(deptCodeField, { target: { value: 'CSdept' } });
             fireEvent.change(collegeCodeField, { target: { value: 'COE'} });
             fireEvent.change(relatedDeptCodeField, { target: { value: 'MATH' } });
-            fireEvent.change(inactiveField, { target: { value: 'true'} });
+            fireEvent.change(inactiveField, { target: { value: "true"} });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled);
