@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 
-function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve1" }) {
+function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve" }) {
 
     // Stryker disable all
     const {
