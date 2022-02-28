@@ -59,7 +59,7 @@ public class EarthquakesController extends ApiController {
             ) throws JsonProcessingException {
         log.info("getEarthquakes: distance={} minMag={}", distance, minMag);
         
-        String json = earthquakeQueryService.getJSON(distance, minMag); 
+        String json = earthquakeQueryService.getJSON(distance, minMag);
         //json returned from Earthquakes API returns a FeatureCollection object
         FeatureCollection featureCollection = mapper.readValue(json, FeatureCollection.class);	
         

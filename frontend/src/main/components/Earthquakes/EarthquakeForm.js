@@ -30,7 +30,7 @@ function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve
     return (
 
         <Form onSubmit={handleSubmit(submitAction)}>
-
+            {initialEarthquake}
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="distance">Distance</Form.Label>
                 <Form.Control
@@ -49,10 +49,10 @@ function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve
                 <Form.Label htmlFor="mag">Minimum Magnitude</Form.Label>
                 <Form.Control
                     data-testid="EarthquakeForm-mag"
-                    id="mag"
+                    id="minMag"
                     type="text"
                     isInvalid={Boolean(errors.mag)}
-                    {...register("mag", {
+                    {...register("minMag", {
                         required: "Minimum Magnitude is required."
                     })}
                 />
