@@ -62,8 +62,8 @@ function EarthquakeForm({ initialEarthquake, submitAction, buttonLabel="Retrieve
             </Form.Group>
 
             <Button
-                type="Retrieve" //potential
-                data-testid="EarthquakeForm-Retrieve"
+                type="submit" //potential
+                data-testid="EarthquakeForm-submit"
             >
                 {buttonLabel}
             </Button>
